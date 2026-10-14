@@ -12,7 +12,7 @@ export default function App() {
 
   useEffect(() => {
     const checkScroll = () => {
-      setIsScrolled(window.scrollY > 20)
+      setIsScrolled(window.scrollY > 50)
       if (window.scrollY > 300) {
         setShowScroll(true)
       } else {
@@ -20,7 +20,7 @@ export default function App() {
       }
     }
     checkScroll()
-    window.addEventListener('scroll', checkScroll)
+    window.addEventListener('scroll', checkScroll, { passive: true })
     return () => window.removeEventListener('scroll', checkScroll)
   }, [])
 
