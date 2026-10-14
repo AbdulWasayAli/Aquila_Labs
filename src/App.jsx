@@ -81,10 +81,8 @@ export default function App() {
 
       <nav className="navbar">
         <div className="container nav-content">
-          <a href="#" className="brand" title="Aquila Labs">
-            <div className="brand-logo-wrapper">
-              <Logo size={40} />
-            </div>
+          <a href="#" className="brand">
+            <Logo size={38} />
             <span className="brand-text">
               Aquila <span>Labs</span>
             </span>
@@ -196,7 +194,7 @@ export default function App() {
             {services.map((item, index) => (
               <div key={index} className="card">
                 <div className="card-icon">
-                  <Logo size={24} />
+                  <Logo size={22} />
                 </div>
                 <h3 className="card-title">{item.title}</h3>
                 <p className="card-desc">{item.desc}</p>
@@ -289,9 +287,7 @@ export default function App() {
           <div className="footer-top">
             <div className="footer-brand">
               <div className="brand">
-                <div className="brand-logo-wrapper">
-                  <Logo size={32} />
-                </div>
+                <Logo size={32} />
                 <span className="brand-text">
                   Aquila <span>Labs</span>
                 </span>
