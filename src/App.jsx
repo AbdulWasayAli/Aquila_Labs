@@ -3,10 +3,27 @@ import Logo from './Logo'
 
 export default function App() {
   const [theme, setTheme] = useState('dark')
+  const [showScroll, setShowScroll] = useState(false)
 
   useEffect(() => {
     document.body.setAttribute('data-theme', theme)
   }, [theme])
+
+  useEffect(() => {
+    const checkScroll = () => {
+      if (window.scrollY > 300) {
+        setShowScroll(true)
+      } else {
+        setShowScroll(false)
+      }
+    }
+    window.addEventListener('scroll', checkScroll)
+    return () => window.removeEventListener('scroll', checkScroll)
+  }, [])
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
 
   const toggleTheme = () => {
     setTheme(prev => (prev === 'dark' ? 'light' : 'dark'))
@@ -76,13 +93,22 @@ export default function App() {
   ]
 
   return (
-    <div>
-      <div className="background-glow-top"></div>
-
+    <div id="top">
       <nav className="navbar">
         <div className="container nav-content">
-          <a href="#" className="brand">
-            <Logo size={38} />
+          <a
+            href="/"
+            onClick={(e) => {
+              e.preventDefault()
+              window.history.pushState(null, '', '/')
+              scrollToTop()
+            }}
+            className="brand"
+            title="Aquila Labs - Home"
+          >
+            <div className="brand-logo-glow">
+              <Logo size={40} />
+            </div>
             <span className="brand-text">
               Aquila <span>Labs</span>
             </span>
@@ -131,10 +157,6 @@ export default function App() {
 
       <header className="hero">
         <div className="container hero-center">
-          <div className="hero-logo-box">
-            <Logo size={96} variant="badge" />
-          </div>
-
           <div className="hero-badge">
             <span className="badge-dot"></span>
             Next-Gen Software & Digital Innovation Lab
@@ -194,7 +216,7 @@ export default function App() {
             {services.map((item, index) => (
               <div key={index} className="card">
                 <div className="card-icon">
-                  <Logo size={22} />
+                  <Logo size={24} />
                 </div>
                 <h3 className="card-title">{item.title}</h3>
                 <p className="card-desc">{item.desc}</p>
@@ -286,12 +308,23 @@ export default function App() {
         <div className="container">
           <div className="footer-top">
             <div className="footer-brand">
-              <div className="brand">
-                <Logo size={32} />
+              <a
+                href="/"
+                onClick={(e) => {
+                  e.preventDefault()
+                  window.history.pushState(null, '', '/')
+                  scrollToTop()
+                }}
+                className="brand"
+                title="Aquila Labs - Home"
+              >
+                <div className="brand-logo-glow">
+                  <Logo size={32} />
+                </div>
                 <span className="brand-text">
                   Aquila <span>Labs</span>
                 </span>
-              </div>
+              </a>
               <p>
                 A modern digital innovation studio delivering high-performance web,
                 mobile, and custom software systems globally.
@@ -334,6 +367,19 @@ export default function App() {
           </div>
         </div>
       </footer>
+
+      {showScroll && (
+        <button
+          onClick={scrollToTop}
+          className="scroll-top-btn"
+          aria-label="Scroll to top"
+          title="Back to top"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="18 15 12 9 6 15"></polyline>
+          </svg>
+        </button>
+      )}
     </div>
   )
 }
