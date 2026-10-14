@@ -41,6 +41,31 @@ export default function App() {
     setTheme(prev => (prev === 'dark' ? 'light' : 'dark'))
   }
 
+  // Interactive 3D Cursor Tilt Handlers
+  const handleCardMouseMove = (e) => {
+    const card = e.currentTarget
+    const rect = card.getBoundingClientRect()
+    const x = e.clientX - rect.left
+    const y = e.clientY - rect.top
+    const centerX = rect.width / 2
+    const centerY = rect.height / 2
+
+    // Max rotation in degrees
+    const rotateX = ((centerY - y) / centerY) * 12
+    const rotateY = ((x - centerX) / centerX) * 12
+
+    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px) scale3d(1.02, 1.02, 1.02)`
+    card.style.setProperty('--mouse-x', `${(x / rect.width) * 100}%`)
+    card.style.setProperty('--mouse-y', `${(y / rect.height) * 100}%`)
+  }
+
+  const handleCardMouseLeave = (e) => {
+    const card = e.currentTarget
+    card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px) scale3d(1, 1, 1)'
+    card.style.setProperty('--mouse-x', '50%')
+    card.style.setProperty('--mouse-y', '50%')
+  }
+
   const services = [
     {
       num: '01',
@@ -196,17 +221,63 @@ export default function App() {
     },
   ]
 
-  const techStack = [
-    'React',
-    'TypeScript',
-    'Node.js',
-    'Flutter',
-    'Next.js',
-    'Python',
-    'PostgreSQL',
-    'Tailwind CSS',
-    'Docker',
-    'Firebase',
+  const techCategories = [
+    {
+      category: 'Frontend & Platforms',
+      badge: 'Client Systems',
+      desc: 'Blazing fast, 60fps responsive interfaces and native cross-platform engines.',
+      icon: '⚡',
+      accent: 'linear-gradient(135deg, #38bdf8, #818cf8)',
+      stack: [
+        { name: 'React 19', role: 'Component Core' },
+        { name: 'Next.js 15', role: 'Full-Stack SSR' },
+        { name: 'TypeScript', role: 'Type Safety' },
+        { name: 'Flutter', role: 'iOS & Android' },
+        { name: 'Tailwind CSS', role: 'Design Engine' },
+      ],
+    },
+    {
+      category: 'Distributed Backend',
+      badge: 'Core Services',
+      desc: 'High-throughput microservices, real-time WebSockets, and low-latency APIs.',
+      icon: '🛡️',
+      accent: 'linear-gradient(135deg, #818cf8, #c084fc)',
+      stack: [
+        { name: 'Node.js', role: 'Async Runtimes' },
+        { name: 'Python', role: 'Microservices & AI' },
+        { name: 'Go (Golang)', role: 'Low Latency Services' },
+        { name: 'PostgreSQL', role: 'Relational DB' },
+        { name: 'Redis', role: 'Sub-millisecond Cache' },
+      ],
+    },
+    {
+      category: 'Cloud, DevOps & Infra',
+      badge: 'Zero-Downtime',
+      desc: 'Production-ready orchestration, resilient CI/CD pipelines, and multi-region deployment.',
+      icon: '☁️',
+      accent: 'linear-gradient(135deg, #06b6d4, #3b82f6)',
+      stack: [
+        { name: 'AWS & GCP', role: 'Cloud Infrastructure' },
+        { name: 'Docker', role: 'Containerization' },
+        { name: 'Kubernetes', role: 'Orchestration' },
+        { name: 'GitHub Actions', role: 'Automated CI/CD' },
+        { name: 'Terraform', role: 'Infra as Code' },
+      ],
+    },
+    {
+      category: 'AI, Models & Vector DBs',
+      badge: 'Intelligence',
+      desc: 'Autonomous LLM agents, high-dimensional vector search, and fine-tuned pipelines.',
+      icon: '🧠',
+      accent: 'linear-gradient(135deg, #ec4899, #8b5cf6)',
+      stack: [
+        { name: 'OpenAI / Claude', role: 'Foundation Models' },
+        { name: 'LangChain / LlamaIndex', role: 'Agentic Workflows' },
+        { name: 'Pinecone / Qdrant', role: 'Vector Embeddings' },
+        { name: 'PyTorch', role: 'Model Inference' },
+        { name: 'FastAPI', role: 'Model Serving' },
+      ],
+    },
   ]
 
   const trustedCompanies = [
@@ -487,8 +558,10 @@ export default function App() {
             {services.map((item, index) => (
               <div
                 key={index}
-                className="card service-card-premium"
+                className="card service-card-premium interactive-3d-card"
                 style={{ '--service-accent': item.accent }}
+                onMouseMove={handleCardMouseMove}
+                onMouseLeave={handleCardMouseLeave}
               >
                 <div className="service-card-top">
                   <span className="service-tag-pill">{item.tag}</span>
@@ -537,7 +610,12 @@ export default function App() {
 
           <div className="grid-3">
             {steps.map((step, index) => (
-              <div key={index} className="process-step">
+              <div
+                key={index}
+                className="process-step interactive-3d-card"
+                onMouseMove={handleCardMouseMove}
+                onMouseLeave={handleCardMouseLeave}
+              >
                 <div className="step-num">{step.num}</div>
                 <h3 className="card-title">{step.title}</h3>
                 <p className="card-desc">{step.desc}</p>
@@ -559,7 +637,12 @@ export default function App() {
 
           <div className="grid-4">
             {team.map((member, index) => (
-              <div key={index} className="card team-card-premium">
+              <div
+                key={index}
+                className="card team-card-premium interactive-3d-card"
+                onMouseMove={handleCardMouseMove}
+                onMouseLeave={handleCardMouseLeave}
+              >
                 <div className="team-card-top-bar">
                   <span className="team-spec-pill">{member.badge}</span>
                 </div>
@@ -584,21 +667,49 @@ export default function App() {
         </div>
       </section>
 
-      <section id="tech" className="section">
+      <section id="tech" className="section tech-ecosystem-section">
         <div className="container">
           <div className="section-head">
-            <span className="section-tag">Ecosystem</span>
+            <span className="section-tag">Technology Ecosystem</span>
             <h2 className="section-title">Modern Stack & Tooling</h2>
             <p className="section-desc">
-              We leverage reliable and industry-standard technologies to ensure speed and longevity.
+              Battle-tested frameworks, cloud infrastructure, and AI toolkits engineered for extreme speed, scalability, and zero downtime.
             </p>
           </div>
 
-          <div className="tech-grid">
-            {techStack.map((tech, index) => (
-              <span key={index} className="tech-badge">
-                {tech}
-              </span>
+          <div className="grid-2 tech-clusters-grid">
+            {techCategories.map((cat, index) => (
+              <div
+                key={index}
+                className="card tech-cluster-card interactive-3d-card"
+                style={{ '--cluster-accent': cat.accent }}
+                onMouseMove={handleCardMouseMove}
+                onMouseLeave={handleCardMouseLeave}
+              >
+                <div className="cluster-header">
+                  <div className="cluster-icon-box">
+                    <span>{cat.icon}</span>
+                  </div>
+                  <div className="cluster-title-wrap">
+                    <span className="cluster-badge">{cat.badge}</span>
+                    <h3 className="cluster-title">{cat.category}</h3>
+                  </div>
+                </div>
+
+                <p className="cluster-desc">{cat.desc}</p>
+
+                <div className="cluster-tools-grid">
+                  {cat.stack.map((item, sIdx) => (
+                    <div key={sIdx} className="cluster-tool-item">
+                      <span className="tool-dot">✦</span>
+                      <div className="tool-text-group">
+                        <span className="tool-name">{item.name}</span>
+                        <span className="tool-role">{item.role}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
             ))}
           </div>
         </div>
@@ -619,8 +730,10 @@ export default function App() {
             {featuredProjects.map((project, index) => (
               <div
                 key={index}
-                className="card project-card-premium"
+                className="card project-card-premium interactive-3d-card"
                 style={{ '--project-glow': project.glow }}
+                onMouseMove={handleCardMouseMove}
+                onMouseLeave={handleCardMouseLeave}
               >
                 <div className="project-glow-layer"></div>
 
@@ -757,7 +870,9 @@ export default function App() {
             <div className="cta-channels-grid">
               <a
                 href="mailto:contact@aquilalabs.com"
-                className="cta-channel-card primary-channel"
+                className="cta-channel-card primary-channel interactive-3d-card"
+                onMouseMove={handleCardMouseMove}
+                onMouseLeave={handleCardMouseLeave}
               >
                 <div className="channel-icon-circle">
                   ✉️
@@ -774,7 +889,9 @@ export default function App() {
                 href="https://linkedin.com"
                 target="_blank"
                 rel="noreferrer"
-                className="cta-channel-card"
+                className="cta-channel-card interactive-3d-card"
+                onMouseMove={handleCardMouseMove}
+                onMouseLeave={handleCardMouseLeave}
               >
                 <div className="channel-icon-circle">
                   💼
@@ -791,7 +908,9 @@ export default function App() {
                 href="https://instagram.com"
                 target="_blank"
                 rel="noreferrer"
-                className="cta-channel-card"
+                className="cta-channel-card interactive-3d-card"
+                onMouseMove={handleCardMouseMove}
+                onMouseLeave={handleCardMouseLeave}
               >
                 <div className="channel-icon-circle">
                   📸
