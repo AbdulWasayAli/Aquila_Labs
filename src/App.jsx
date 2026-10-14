@@ -1,10 +1,19 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Logo from './Logo'
 
 export default function App() {
   const [theme, setTheme] = useState('dark')
   const [showScroll, setShowScroll] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
+  const reviewsTrackRef = useRef(null)
+  const isDraggingRef = useRef(false)
+  const startXRef = useRef(0)
+  const scrollLeftRef = useRef(0)
+
+  const trustTrackRef = useRef(null)
+  const isTrustDraggingRef = useRef(false)
+  const startTrustXRef = useRef(0)
+  const scrollTrustLeftRef = useRef(0)
 
   useEffect(() => {
     document.body.setAttribute('data-theme', theme)
@@ -34,28 +43,52 @@ export default function App() {
 
   const services = [
     {
+      num: '01',
+      tag: 'Web Architecture',
       title: 'Full-Stack Web Apps',
-      desc: 'High-performance React, Next.js, and modern backends architected for rapid scale.',
+      desc: 'High-performance React, Next.js, and distributed backends architected for millisecond response times and rapid global scale.',
+      features: ['Server-Side Rendering', 'Micro-Frontends', 'Edge Deployment'],
+      accent: 'linear-gradient(135deg, #38bdf8, #818cf8)',
     },
     {
+      num: '02',
+      tag: 'Native & Hybrid',
       title: 'Mobile App Development',
-      desc: 'Cross-platform iOS and Android apps with native-grade performance and animations.',
+      desc: 'Cross-platform iOS and Android apps with 120fps fluid animations, offline-first sync, and native module bridges.',
+      features: ['Flutter & React Native', 'Offline-First DB', 'Smooth Gestures'],
+      accent: 'linear-gradient(135deg, #818cf8, #c084fc)',
     },
     {
+      num: '03',
+      tag: 'Product Strategy',
       title: 'UI / UX Product Design',
-      desc: 'World-class user interfaces, design systems, and seamless user experiences.',
+      desc: 'World-class user interfaces, production-ready Figma design systems, and seamless user experiences tuned for conversion.',
+      features: ['Design Systems', 'Micro-Interactions', 'Interactive Prototypes'],
+      accent: 'linear-gradient(135deg, #38bdf8, #34d399)',
     },
     {
+      num: '04',
+      tag: 'Backend & DevOps',
       title: 'Cloud & API Integration',
-      desc: 'Secure cloud infrastructure, custom APIs, database management, and seamless DevOps.',
+      desc: 'Resilient cloud infrastructure, GraphQL & REST APIs, event-driven pipelines, and automated continuous delivery.',
+      features: ['AWS & Google Cloud', 'CI/CD Pipelines', 'Zero-Downtime Releases'],
+      accent: 'linear-gradient(135deg, #f59e0b, #ef4444)',
     },
     {
+      num: '05',
+      tag: 'Intelligence',
       title: 'AI & Smart Automation',
-      desc: 'Integrating intelligence, workflow automation, and custom algorithms into your workflow.',
+      desc: 'Embedding custom LLM agents, semantic vector search, autonomous workflows, and real-time inference into your product.',
+      features: ['Autonomous Agents', 'Vector Databases', 'Prompt Engineering'],
+      accent: 'linear-gradient(135deg, #06b6d4, #3b82f6)',
     },
     {
-      title: 'Branding & Identity',
-      desc: 'Memorable brand identity, modern logos, and consistent visual guidelines for tech startups.',
+      num: '06',
+      tag: 'Visual Identity',
+      title: 'Branding & Design Identity',
+      desc: 'Memorable digital brand identity, iconic logo systems, typography palettes, and coherent visual guidelines for startups.',
+      features: ['Logo Systems', 'Brand Guidelines', 'Marketing Collateral'],
+      accent: 'linear-gradient(135deg, #ec4899, #8b5cf6)',
     },
   ]
 
@@ -93,6 +126,79 @@ export default function App() {
     'Tailwind CSS',
     'Docker',
     'Firebase',
+  ]
+
+  const trustedCompanies = [
+    'TechNova Systems',
+    'Apex Financial',
+    'Vanguard Health',
+    'HyperScale AI',
+    'OmniCloud Media',
+    'Aether Robotics',
+  ]
+
+  const featuredProjects = [
+    {
+      tag: 'AI Platform',
+      icon: '⚡',
+      title: 'Enterprise LLM Workflow Engine',
+      desc: 'High-throughput AI pipeline with millisecond semantic retrieval, vector memory indexing, and autonomous model orchestration.',
+      badge: 'Case Study Soon',
+      metric: '10x Faster Query Latency',
+      tech: ['React', 'Python', 'FastAPI', 'PgVector', 'Tailwind'],
+      glow: 'rgba(56, 189, 248, 0.18)',
+    },
+    {
+      tag: 'FinTech App',
+      icon: '💎',
+      title: 'Decentralized Asset Dashboard',
+      desc: 'Institutional analytics terminal delivering real-time block streaming, algorithmic portfolio rebalancing, and automated compliance.',
+      badge: 'Case Study Soon',
+      metric: '$40M+ Volume Processed',
+      tech: ['Next.js', 'TypeScript', 'Node.js', 'PostgreSQL', 'WebSockets'],
+      glow: 'rgba(129, 140, 248, 0.18)',
+    },
+    {
+      tag: 'Mobile Suite',
+      icon: '🩺',
+      title: 'Health & Telemedicine Platform',
+      desc: 'HIPAA-compliant native mobile ecosystem with sub-second video telemetry, secure clinical records, and remote sensor integration.',
+      badge: 'Case Study Soon',
+      metric: '99.99% Uptime SLA',
+      tech: ['React Native', 'GraphQL', 'AWS', 'WebRTC', 'Redis'],
+      glow: 'rgba(52, 211, 153, 0.18)',
+    },
+  ]
+
+  const testimonials = [
+    {
+      quote: 'Aquila Labs delivered our mission-critical SaaS ahead of schedule. Their attention to performance, modern design, and architectural scalability is second to none.',
+      author: 'Marcus Vance',
+      role: 'Chief Technology Officer',
+      company: 'Apex Financial',
+      rating: 5,
+    },
+    {
+      quote: 'Working with Aquila Labs felt like having an elite Silicon Valley engineering wing inside our company. Our mobile app downloads grew 400% after their redesign.',
+      author: 'Sophia Chen',
+      role: 'Head of Product',
+      company: 'OmniCloud Media',
+      rating: 5,
+    },
+    {
+      quote: 'Exceptional engineering discipline. They took our complex AI workflow and turned it into an intuitive, lightning-fast platform that our enterprise clients love.',
+      author: 'David Sterling',
+      role: 'Founder & CEO',
+      company: 'HyperScale AI',
+      rating: 5,
+    },
+    {
+      quote: 'Flawless execution on our cloud infrastructure and real-time dashboard. The team communicates with absolute clarity and precision.',
+      author: 'Elena Rostova',
+      role: 'VP of Engineering',
+      company: 'TechNova Systems',
+      rating: 5,
+    },
   ]
 
   const team = [
@@ -147,9 +253,11 @@ export default function App() {
           <div className="nav-right">
             <div className="nav-links">
               <a href="#services">Services</a>
+              <a href="#work">Work</a>
               <a href="#process">Process</a>
               <a href="#team">Team</a>
               <a href="#tech">Stack</a>
+              <a href="#testimonials">Reviews</a>
               <a href="#connect">Connect</a>
             </div>
 
@@ -226,6 +334,54 @@ export default function App() {
             </div>
           </div>
         </div>
+
+        {/* Infinite Trusted By Marquee (Draggable & Pauses on Hover) */}
+        <div className="trust-marquee-wrapper">
+          <p className="trust-marquee-label">Trusted by high-growth founders and forward-thinking enterprises</p>
+          <div
+            className="trust-marquee"
+            ref={trustTrackRef}
+            onMouseDown={(e) => {
+              isTrustDraggingRef.current = true
+              startTrustXRef.current = e.pageX - trustTrackRef.current.offsetLeft
+              scrollTrustLeftRef.current = trustTrackRef.current.scrollLeft
+              trustTrackRef.current.classList.add('is-dragging')
+            }}
+            onMouseLeave={() => {
+              isTrustDraggingRef.current = false
+              if (trustTrackRef.current) {
+                trustTrackRef.current.classList.remove('is-dragging')
+              }
+            }}
+            onMouseUp={() => {
+              isTrustDraggingRef.current = false
+              if (trustTrackRef.current) {
+                trustTrackRef.current.classList.remove('is-dragging')
+              }
+            }}
+            onMouseMove={(e) => {
+              if (!isTrustDraggingRef.current) return
+              e.preventDefault()
+              const x = e.pageX - trustTrackRef.current.offsetLeft
+              const walk = (x - startTrustXRef.current) * 1.5
+              trustTrackRef.current.scrollLeft = scrollTrustLeftRef.current - walk
+            }}
+            onWheel={(e) => {
+              if (e.deltaY !== 0) {
+                trustTrackRef.current.scrollLeft += e.deltaY * 0.8
+              }
+            }}
+          >
+            <div className="trust-marquee-track">
+              {trustedCompanies.concat(trustedCompanies).concat(trustedCompanies).map((company, index) => (
+                <div key={index} className="trust-company-pill">
+                  <span className="trust-bullet">✦</span>
+                  <span>{company}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </header>
 
       <section id="services" className="section">
@@ -240,12 +396,40 @@ export default function App() {
 
           <div className="grid-3">
             {services.map((item, index) => (
-              <div key={index} className="card">
-                <div className="card-icon">
-                  <Logo size={24} />
+              <div
+                key={index}
+                className="card service-card-premium"
+                style={{ '--service-accent': item.accent }}
+              >
+                <div className="service-card-top">
+                  <span className="service-tag-pill">{item.tag}</span>
+                  <span className="service-number-badge">{item.num}</span>
                 </div>
-                <h3 className="card-title">{item.title}</h3>
-                <p className="card-desc">{item.desc}</p>
+
+                <div className="service-card-header">
+                  <div className="service-logo-box">
+                    <Logo size={24} />
+                  </div>
+                  <h3 className="service-title-text">{item.title}</h3>
+                </div>
+
+                <p className="service-desc-text">{item.desc}</p>
+
+                {/* Sub-capabilities / Highlights */}
+                <div className="service-features-list">
+                  {item.features.map((feat, fIdx) => (
+                    <span key={fIdx} className="service-feature-item">
+                      <span className="feature-check">✦</span>
+                      <span>{feat}</span>
+                    </span>
+                  ))}
+                </div>
+
+                <div className="service-card-bottom">
+                  <span className="service-explore-link">
+                    Explore Capability <span className="service-arrow">→</span>
+                  </span>
+                </div>
               </div>
             ))}
           </div>
@@ -317,36 +501,204 @@ export default function App() {
         </div>
       </section>
 
-      <section id="connect" className="section">
+      {/* Featured Projects / Work Showcase */}
+      <section id="work" className="section work-section">
         <div className="container">
-          <div className="cta-banner">
-            <h2 className="section-title">Ready to build something iconic?</h2>
+          <div className="section-head">
+            <span className="section-tag">Portfolio</span>
+            <h2 className="section-title">Selected Case Studies</h2>
             <p className="section-desc">
-              Connect with Aquila Labs on our active community channels or reach out directly.
+              A glimpse into the digital systems, web apps, and enterprise platforms engineered by our team.
+            </p>
+          </div>
+
+          <div className="grid-3">
+            {featuredProjects.map((project, index) => (
+              <div
+                key={index}
+                className="card project-card-premium"
+                style={{ '--project-glow': project.glow }}
+              >
+                <div className="project-glow-layer"></div>
+
+                <div className="project-badge-bar">
+                  <div className="project-tag-group">
+                    <span className="project-icon-box">{project.icon}</span>
+                    <span className="project-category-tag">{project.tag}</span>
+                  </div>
+                  <span className="project-status-badge">
+                    <span className="pulse-dot"></span>
+                    {project.badge}
+                  </span>
+                </div>
+
+                <h3 className="project-title">{project.title}</h3>
+                <p className="project-desc">{project.desc}</p>
+
+                {/* Key Engineering Impact Metric */}
+                <div className="project-metric-pill">
+                  <span className="metric-icon">📈</span>
+                  <span className="metric-text">{project.metric}</span>
+                </div>
+
+                <div className="project-tech-tags">
+                  {project.tech.map((t, i) => (
+                    <span key={i} className="project-tech-tag">{t}</span>
+                  ))}
+                </div>
+
+                <div className="project-card-footer">
+                  <span className="project-link-hint">
+                    Explore Architecture & Specs <span className="arrow-animated">→</span>
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Continuous Sliding Reviews Row (Pauses on Hover) */}
+      <section id="testimonials" className="section testimonials-section">
+        <div className="container">
+          <div className="section-head">
+            <span className="section-tag">Client Voices</span>
+            <h2 className="section-title">What Founders Say About Us</h2>
+            <p className="section-desc">
+              Verified feedback from enterprise clients and high-growth partners.
+            </p>
+          </div>
+        </div>
+
+        <div
+          className="reviews-marquee-outer"
+          ref={reviewsTrackRef}
+          onMouseDown={(e) => {
+            isDraggingRef.current = true
+            startXRef.current = e.pageX - reviewsTrackRef.current.offsetLeft
+            scrollLeftRef.current = reviewsTrackRef.current.scrollLeft
+            reviewsTrackRef.current.classList.add('is-dragging')
+          }}
+          onMouseLeave={() => {
+            isDraggingRef.current = false
+            if (reviewsTrackRef.current) {
+              reviewsTrackRef.current.classList.remove('is-dragging')
+            }
+          }}
+          onMouseUp={() => {
+            isDraggingRef.current = false
+            if (reviewsTrackRef.current) {
+              reviewsTrackRef.current.classList.remove('is-dragging')
+            }
+          }}
+          onMouseMove={(e) => {
+            if (!isDraggingRef.current) return
+            e.preventDefault()
+            const x = e.pageX - reviewsTrackRef.current.offsetLeft
+            const walk = (x - startXRef.current) * 1.5
+            reviewsTrackRef.current.scrollLeft = scrollLeftRef.current - walk
+          }}
+          onWheel={(e) => {
+            if (e.deltaY !== 0) {
+              reviewsTrackRef.current.scrollLeft += e.deltaY * 0.8
+            }
+          }}
+        >
+          <div className="reviews-marquee-track">
+            {testimonials.concat(testimonials).concat(testimonials).map((item, index) => (
+              <div key={index} className="reviews-marquee-card card">
+                <div className="review-card-header">
+                  <div className="testimonial-rating">
+                    {'★'.repeat(item.rating)}
+                  </div>
+                  <span className="review-verified-tag">✓ Verified Partner</span>
+                </div>
+
+                <p className="slider-review-quote">"{item.quote}"</p>
+
+                <div className="testimonial-author-box">
+                  <div className="testimonial-avatar">
+                    {item.author.split(' ').map(n => n[0]).join('')}
+                  </div>
+                  <div>
+                    <h4 className="testimonial-name">{item.author}</h4>
+                    <p className="testimonial-role">
+                      {item.role} · <span className="highlight-text">{item.company}</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Ultra-Premium CTA Section */}
+      <section id="connect" className="section connect-section">
+        <div className="container">
+          <div className="cta-banner-premium">
+            <div className="cta-glow-background"></div>
+
+            <div className="cta-header-pill">
+              <span className="pulse-dot"></span>
+              <span>Available for New Projects</span>
+            </div>
+
+            <h2 className="cta-headline">
+              Ready to build <span className="gradient-text">something iconic?</span>
+            </h2>
+            <p className="cta-subtext">
+              Whether you are architecting a new software platform from scratch or scaling an existing system, Aquila Labs delivers elite technical execution.
             </p>
 
-            <div className="social-links">
+            <div className="cta-channels-grid">
+              <a
+                href="mailto:contact@aquilalabs.com"
+                className="cta-channel-card primary-channel"
+              >
+                <div className="channel-icon-circle">
+                  ✉️
+                </div>
+                <div className="channel-info">
+                  <span className="channel-type">Direct Inquiry</span>
+                  <span className="channel-title">contact@aquilalabs.com</span>
+                  <span className="channel-badge">Average response: &lt; 2 hrs</span>
+                </div>
+                <span className="channel-arrow">→</span>
+              </a>
+
               <a
                 href="https://linkedin.com"
                 target="_blank"
                 rel="noreferrer"
-                className="social-card"
+                className="cta-channel-card"
               >
-                LinkedIn Profile ↗
+                <div className="channel-icon-circle">
+                  💼
+                </div>
+                <div className="channel-info">
+                  <span className="channel-type">Professional Network</span>
+                  <span className="channel-title">LinkedIn Profile</span>
+                  <span className="channel-hint">Connect with Founders ↗</span>
+                </div>
+                <span className="channel-arrow">↗</span>
               </a>
+
               <a
                 href="https://instagram.com"
                 target="_blank"
                 rel="noreferrer"
-                className="social-card"
+                className="cta-channel-card"
               >
-                Instagram Page ↗
-              </a>
-              <a
-                href="mailto:contact@aquilalabs.com"
-                className="social-card"
-              >
-                Email Our Team ✉
+                <div className="channel-icon-circle">
+                  📸
+                </div>
+                <div className="channel-info">
+                  <span className="channel-type">Studio Culture</span>
+                  <span className="channel-title">Instagram Page</span>
+                  <span className="channel-hint">Behind the scenes ↗</span>
+                </div>
+                <span className="channel-arrow">↗</span>
               </a>
             </div>
           </div>
