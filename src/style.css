@@ -78,17 +78,23 @@ body {
   position: sticky;
   top: 0;
   z-index: 100;
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  background: rgba(7, 9, 14, 0.92);
-  border-bottom: 1px solid var(--border-subtle);
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  background: transparent;
+  border-bottom: 1px solid transparent;
+  transition: all 0.35s ease;
+  box-shadow: none;
 }
 
-body[data-theme='light'] .navbar {
-  background: rgba(255, 255, 255, 0.92);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+.navbar.navbar-scrolled {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  background: rgba(7, 9, 14, 0.88);
+  border-bottom: 1px solid var(--border-subtle);
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.45);
+}
+
+body[data-theme='light'] .navbar.navbar-scrolled {
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.06);
 }
 
 .nav-content {
@@ -261,7 +267,7 @@ body[data-theme='light'] .navbar {
 }
 
 .hero {
-  padding: 80px 0 80px;
+  padding: 120px 0 80px;
   text-align: center;
   position: relative;
 }
