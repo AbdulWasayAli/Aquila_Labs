@@ -41,7 +41,7 @@ export default function App() {
     setTheme(prev => (prev === 'dark' ? 'light' : 'dark'))
   }
 
-  // Interactive 3D Cursor Tilt Handlers
+
   const handleCardMouseMove = (e) => {
     const card = e.currentTarget
     const rect = card.getBoundingClientRect()
@@ -50,7 +50,7 @@ export default function App() {
     const centerX = rect.width / 2
     const centerY = rect.height / 2
 
-    // Max rotation in degrees
+
     const rotateX = ((centerY - y) / centerY) * 12
     const rotateY = ((x - centerX) / centerX) * 12
 
@@ -495,7 +495,7 @@ export default function App() {
           </div>
         </div>
 
-        {/* Infinite Trusted By Marquee (Draggable & Pauses on Hover) */}
+
         <div className="trust-marquee-wrapper">
           <p className="trust-marquee-label">Trusted by high-growth founders and forward-thinking enterprises</p>
           <div
@@ -577,7 +577,7 @@ export default function App() {
 
                 <p className="service-desc-text">{item.desc}</p>
 
-                {/* Sub-capabilities / Highlights */}
+
                 <div className="service-features-list">
                   {item.features.map((feat, fIdx) => (
                     <span key={fIdx} className="service-feature-item">
@@ -715,7 +715,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* Featured Projects / Work Showcase */}
+
       <section id="work" className="section work-section">
         <div className="container">
           <div className="section-head">
@@ -751,7 +751,7 @@ export default function App() {
                 <h3 className="project-title">{project.title}</h3>
                 <p className="project-desc">{project.desc}</p>
 
-                {/* Key Engineering Impact Metric */}
+
                 <div className="project-metric-pill">
                   <span className="metric-icon">📈</span>
                   <span className="metric-text">{project.metric}</span>
@@ -774,7 +774,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* Continuous Sliding Reviews Row (Pauses on Hover) */}
+
       <section id="testimonials" className="section testimonials-section">
         <div className="container">
           <div className="section-head">
@@ -849,7 +849,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* Ultra-Premium CTA Section */}
+
       <section id="connect" className="section connect-section">
         <div className="container">
           <div className="cta-banner-premium">

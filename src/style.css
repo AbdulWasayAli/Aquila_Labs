@@ -396,7 +396,7 @@ body[data-theme='light'] .navbar.navbar-scrolled {
   position: relative;
 }
 
-/* Interactive 3D Cursor Tracking */
+
 .interactive-3d-card {
   transform-style: preserve-3d;
   will-change: transform;
@@ -462,7 +462,7 @@ body[data-theme='light'] .navbar.navbar-scrolled {
   line-height: 1.6;
 }
 
-/* Modern Capabilities / Service Cards */
+
 .service-card-premium {
   display: flex;
   flex-direction: column;
@@ -638,7 +638,7 @@ body[data-theme='light'] .navbar.navbar-scrolled {
   margin-bottom: 12px;
 }
 
-/* Ultra-Modern Technology Clusters */
+
 .grid-2.tech-clusters-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
@@ -778,7 +778,7 @@ body[data-theme='light'] .navbar.navbar-scrolled {
   margin-top: 2px;
 }
 
-/* Ultra-Premium Leadership Cards */
+
 .team-card-premium {
   display: flex;
   flex-direction: column;
@@ -893,7 +893,7 @@ body[data-theme='light'] .navbar.navbar-scrolled {
   color: var(--text-dim);
 }
 
-/* Ultra-Premium CTA Banner */
+
 .cta-banner-premium {
   position: relative;
   overflow: hidden;
@@ -1147,7 +1147,7 @@ body[data-theme='light'] .navbar.navbar-scrolled {
   gap: 16px;
 }
 
-/* Trusted Marquee Ticker */
+
 .trust-marquee-wrapper {
   margin-top: 60px;
   width: 100%;
@@ -1233,7 +1233,7 @@ body[data-theme='light'] .navbar.navbar-scrolled {
   font-size: 12px;
 }
 
-/* Selected Projects / Ultra-Premium Cards */
+
 .project-card-premium {
   display: flex;
   flex-direction: column;
@@ -1451,7 +1451,7 @@ body[data-theme='light'] .navbar.navbar-scrolled {
   padding: 20px 0 40px;
   cursor: grab;
   user-select: none;
-  scrollbar-width: none; /* Hide standard scrollbar */
+  scrollbar-width: none; 
   -ms-overflow-style: none;
   mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
   -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
