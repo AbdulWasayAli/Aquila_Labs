@@ -497,20 +497,25 @@ body[data-theme='light'] .navbar.navbar-scrolled {
 }
 
 .service-logo-box {
-  width: 48px;
-  height: 48px;
-  border-radius: 14px;
-  background: var(--surface-card-hover);
-  border: 1px solid var(--border-subtle);
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  transition: transform 0.3s ease;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .service-card-premium:hover .service-logo-box {
-  transform: scale(1.1) rotate(6deg);
+  transform: scale(1.12) rotate(4deg);
+  border-color: rgba(56, 189, 248, 0.5);
+  box-shadow: 0 10px 25px rgba(56, 189, 248, 0.2);
+  background: rgba(56, 189, 248, 0.08);
 }
 
 .service-title-text {
@@ -622,29 +627,118 @@ body[data-theme='light'] .navbar.navbar-scrolled {
   border-color: var(--accent-cyan);
 }
 
-.team-avatar {
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
+/* Ultra-Premium Leadership Cards */
+.team-card-premium {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  border-radius: 22px;
+  background: var(--surface-card);
+  border: 1px solid var(--border-subtle);
+  padding: 30px 24px;
+  transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.team-card-premium:hover {
+  transform: translateY(-8px);
+  border-color: var(--accent-cyan);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45);
+}
+
+.team-card-top-bar {
+  margin-bottom: 20px;
+}
+
+.team-spec-pill {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--accent-cyan);
+  background: rgba(56, 189, 248, 0.08);
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  padding: 4px 10px;
+  border-radius: 9999px;
+  display: inline-block;
+}
+
+.team-avatar-premium {
+  width: 58px;
+  height: 58px;
+  border-radius: 18px;
   background: var(--surface-card-hover);
-  border: 2px solid var(--border-subtle);
+  border: 1px solid var(--border-subtle);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 20px;
-  font-size: 20px;
-  font-weight: 800;
-  color: var(--accent-cyan);
+  margin-bottom: 18px;
+  position: relative;
+  box-shadow: var(--card-shadow);
+  transition: transform 0.3s ease;
 }
 
-.team-role {
+.team-card-premium:hover .team-avatar-premium {
+  transform: scale(1.08) rotate(4deg);
+}
+
+.team-avatar-emoji {
+  font-size: 24px;
+}
+
+.avatar-status-dot {
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #10b981;
+  border: 2px solid var(--bg-primary);
+  box-shadow: 0 0 8px #10b981;
+}
+
+.team-member-name {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--text-white);
+  margin-bottom: 4px;
+  letter-spacing: -0.3px;
+}
+
+.team-member-role {
   color: var(--accent-cyan);
-  font-size: 13px;
+  font-size: 12.5px;
   font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-bottom: 10px;
+  margin-bottom: 14px;
   display: block;
+}
+
+.team-member-desc {
+  font-size: 13.5px;
+  color: var(--text-body);
+  line-height: 1.6;
+  margin-bottom: 20px;
+  flex-grow: 1;
+}
+
+.team-skills-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 14px;
+}
+
+.team-skill-chip {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 6px;
+  background: var(--surface-card-hover);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-dim);
 }
 
 /* Ultra-Premium CTA Banner */
@@ -804,13 +898,19 @@ body[data-theme='light'] .navbar.navbar-scrolled {
 
 .channel-arrow {
   color: var(--accent-cyan);
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 700;
-  transition: transform 0.25s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  margin-left: auto;
+  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), color 0.25s ease;
 }
 
 .cta-channel-card:hover .channel-arrow {
-  transform: translateX(4px);
+  transform: translate(3px, -3px);
+  color: var(--accent-blue);
 }
 
 .scroll-top-btn {

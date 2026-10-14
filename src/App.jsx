@@ -49,6 +49,22 @@ export default function App() {
       desc: 'High-performance React, Next.js, and distributed backends architected for millisecond response times and rapid global scale.',
       features: ['Server-Side Rendering', 'Micro-Frontends', 'Edge Deployment'],
       accent: 'linear-gradient(135deg, #38bdf8, #818cf8)',
+      icon: (
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+          <defs>
+            <linearGradient id="grad-web" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#38bdf8" />
+              <stop offset="100%" stopColor="#818cf8" />
+            </linearGradient>
+          </defs>
+          <rect x="2" y="3" width="20" height="14" rx="3" stroke="url(#grad-web)" strokeWidth="1.8" fill="rgba(56, 189, 248, 0.12)" />
+          <path d="M2 7h20" stroke="url(#grad-web)" strokeWidth="1.5" strokeOpacity="0.5" />
+          <circle cx="5" cy="5" r="1" fill="#38bdf8" />
+          <circle cx="8" cy="5" r="1" fill="#818cf8" />
+          <path d="M7 11.5l2 2-2 2M11 15.5h4" stroke="url(#grad-web)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M8 21h8M12 17v4" stroke="url(#grad-web)" strokeWidth="1.8" strokeLinecap="round" />
+        </svg>
+      ),
     },
     {
       num: '02',
@@ -57,6 +73,20 @@ export default function App() {
       desc: 'Cross-platform iOS and Android apps with 120fps fluid animations, offline-first sync, and native module bridges.',
       features: ['Flutter & React Native', 'Offline-First DB', 'Smooth Gestures'],
       accent: 'linear-gradient(135deg, #818cf8, #c084fc)',
+      icon: (
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+          <defs>
+            <linearGradient id="grad-mob" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#818cf8" />
+              <stop offset="100%" stopColor="#c084fc" />
+            </linearGradient>
+          </defs>
+          <rect x="5" y="2" width="14" height="20" rx="3.5" stroke="url(#grad-mob)" strokeWidth="1.8" fill="rgba(129, 140, 248, 0.12)" />
+          <path d="M9.5 5h5" stroke="url(#grad-mob)" strokeWidth="1.5" strokeLinecap="round" strokeOpacity="0.7" />
+          <circle cx="12" cy="18" r="1.2" fill="#c084fc" />
+          <path d="M8 9h8M8 12h5" stroke="url(#grad-mob)" strokeWidth="1.5" strokeLinecap="round" strokeOpacity="0.6" />
+        </svg>
+      ),
     },
     {
       num: '03',
@@ -65,6 +95,20 @@ export default function App() {
       desc: 'World-class user interfaces, production-ready Figma design systems, and seamless user experiences tuned for conversion.',
       features: ['Design Systems', 'Micro-Interactions', 'Interactive Prototypes'],
       accent: 'linear-gradient(135deg, #38bdf8, #34d399)',
+      icon: (
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+          <defs>
+            <linearGradient id="grad-design" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#38bdf8" />
+              <stop offset="100%" stopColor="#34d399" />
+            </linearGradient>
+          </defs>
+          <rect x="3" y="3" width="8" height="8" rx="2" stroke="url(#grad-design)" strokeWidth="1.8" fill="rgba(56, 189, 248, 0.15)" />
+          <rect x="13" y="3" width="8" height="8" rx="2" stroke="url(#grad-design)" strokeWidth="1.8" strokeDasharray="2 2" />
+          <rect x="13" y="13" width="8" height="8" rx="2" stroke="url(#grad-design)" strokeWidth="1.8" fill="rgba(52, 211, 153, 0.15)" />
+          <circle cx="7" cy="17" r="4" stroke="url(#grad-design)" strokeWidth="1.8" fill="rgba(56, 189, 248, 0.1)" />
+        </svg>
+      ),
     },
     {
       num: '04',
@@ -72,7 +116,19 @@ export default function App() {
       title: 'Cloud & API Integration',
       desc: 'Resilient cloud infrastructure, GraphQL & REST APIs, event-driven pipelines, and automated continuous delivery.',
       features: ['AWS & Google Cloud', 'CI/CD Pipelines', 'Zero-Downtime Releases'],
-      accent: 'linear-gradient(135deg, #f59e0b, #ef4444)',
+      accent: 'linear-gradient(135deg, #38bdf8, #6366f1)',
+      icon: (
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+          <defs>
+            <linearGradient id="grad-cloud" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#38bdf8" />
+              <stop offset="100%" stopColor="#6366f1" />
+            </linearGradient>
+          </defs>
+          <path d="M6.5 19a4.5 4.5 0 0 1-.5-8.97A7 7 0 0 1 19.5 13a4.5 4.5 0 0 1-1.5 8.75H6.5z" stroke="url(#grad-cloud)" strokeWidth="1.8" fill="rgba(56, 189, 248, 0.12)" />
+          <path d="M12 11v6M9.5 14.5l2.5 2.5 2.5-2.5" stroke="url(#grad-cloud)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      ),
     },
     {
       num: '05',
@@ -80,7 +136,20 @@ export default function App() {
       title: 'AI & Smart Automation',
       desc: 'Embedding custom LLM agents, semantic vector search, autonomous workflows, and real-time inference into your product.',
       features: ['Autonomous Agents', 'Vector Databases', 'Prompt Engineering'],
-      accent: 'linear-gradient(135deg, #06b6d4, #3b82f6)',
+      accent: 'linear-gradient(135deg, #06b6d4, #a855f7)',
+      icon: (
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+          <defs>
+            <linearGradient id="grad-ai" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#06b6d4" />
+              <stop offset="100%" stopColor="#a855f7" />
+            </linearGradient>
+          </defs>
+          <path d="M12 2l2.4 5.6L20 10l-4.5 4.2 1.2 6.1-4.7-3-4.7 3 1.2-6.1L4 10l5.6-2.4L12 2z" stroke="url(#grad-ai)" strokeWidth="1.8" fill="rgba(6, 182, 212, 0.12)" strokeLinejoin="round" />
+          <circle cx="12" cy="11.5" r="2" fill="#06b6d4" />
+          <circle cx="12" cy="11.5" r="4.5" stroke="url(#grad-ai)" strokeWidth="1" strokeDasharray="2 2" />
+        </svg>
+      ),
     },
     {
       num: '06',
@@ -89,6 +158,18 @@ export default function App() {
       desc: 'Memorable digital brand identity, iconic logo systems, typography palettes, and coherent visual guidelines for startups.',
       features: ['Logo Systems', 'Brand Guidelines', 'Marketing Collateral'],
       accent: 'linear-gradient(135deg, #ec4899, #8b5cf6)',
+      icon: (
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+          <defs>
+            <linearGradient id="grad-brand" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#ec4899" />
+              <stop offset="100%" stopColor="#8b5cf6" />
+            </linearGradient>
+          </defs>
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="url(#grad-brand)" strokeWidth="1.8" fill="rgba(236, 72, 153, 0.12)" strokeLinejoin="round" />
+          <path d="M9 12l2 2 4-4" stroke="url(#grad-brand)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      ),
     },
   ]
 
@@ -203,28 +284,36 @@ export default function App() {
 
   const team = [
     {
-      initials: '01',
+      badge: 'Founder / Architecture',
       name: 'Coming Soon',
-      role: 'Core Team',
-      desc: 'Architecting high-scale digital solutions and strategic technology roadmap.',
+      role: 'System & Distributed Engineering',
+      desc: 'Specializing in high-concurrency systems, low-latency microservices, and enterprise cloud architecture.',
+      skills: ['Cloud Architecture', 'Distributed Systems', 'Go / Node'],
+      avatarIcon: '⚡',
     },
     {
-      initials: '02',
+      badge: 'Frontend Engineering',
       name: 'Coming Soon',
-      role: 'Core Team',
-      desc: 'Engineering performant full-stack systems and cloud infrastructure.',
+      role: 'Frontend & UI Performance',
+      desc: 'Specializing in cutting-edge Next.js interfaces, 60fps animations, WebGL, and design systems.',
+      skills: ['Next.js / React', 'TypeScript', 'Design Systems'],
+      avatarIcon: '🎨',
     },
     {
-      initials: '03',
+      badge: 'Native Platforms',
       name: 'Coming Soon',
-      role: 'Core Team',
-      desc: 'Leading intuitive user experience, UI design systems, and visual identity.',
+      role: 'iOS & Android Systems',
+      desc: 'Pioneering cross-platform architectures with native-grade performance and real-time offline sync.',
+      skills: ['Flutter', 'React Native', 'Mobile Security'],
+      avatarIcon: '📱',
     },
     {
-      initials: '04',
+      badge: 'AI & Data Engineering',
       name: 'Coming Soon',
-      role: 'Core Team',
-      desc: 'Driving product growth, technical delivery, and client partnerships.',
+      role: 'Machine Learning & Agents',
+      desc: 'Developing specialized LLM agent systems, semantic retrieval engines, and high-volume data pipelines.',
+      skills: ['LLM Orchestration', 'Vector DBs', 'Python / PyTorch'],
+      avatarIcon: '🧠',
     },
   ]
 
@@ -408,7 +497,7 @@ export default function App() {
 
                 <div className="service-card-header">
                   <div className="service-logo-box">
-                    <Logo size={24} />
+                    {item.icon}
                   </div>
                   <h3 className="service-title-text">{item.title}</h3>
                 </div>
@@ -470,11 +559,25 @@ export default function App() {
 
           <div className="grid-4">
             {team.map((member, index) => (
-              <div key={index} className="card">
-                <div className="team-avatar">{member.initials}</div>
-                <span className="team-role">{member.role}</span>
-                <h3 className="card-title">{member.name}</h3>
-                <p className="card-desc">{member.desc}</p>
+              <div key={index} className="card team-card-premium">
+                <div className="team-card-top-bar">
+                  <span className="team-spec-pill">{member.badge}</span>
+                </div>
+
+                <div className="team-avatar-premium">
+                  <span className="team-avatar-emoji">{member.avatarIcon}</span>
+                  <div className="avatar-status-dot" title="Active Core Leadership"></div>
+                </div>
+
+                <h3 className="team-member-name">{member.name}</h3>
+                <span className="team-member-role">{member.role}</span>
+                <p className="team-member-desc">{member.desc}</p>
+
+                <div className="team-skills-chips">
+                  {member.skills.map((skill, sIdx) => (
+                    <span key={sIdx} className="team-skill-chip">{skill}</span>
+                  ))}
+                </div>
               </div>
             ))}
           </div>
@@ -664,7 +767,7 @@ export default function App() {
                   <span className="channel-title">contact@aquilalabs.com</span>
                   <span className="channel-badge">Average response: &lt; 2 hrs</span>
                 </div>
-                <span className="channel-arrow">→</span>
+                <span className="channel-arrow">↗</span>
               </a>
 
               <a
@@ -679,7 +782,7 @@ export default function App() {
                 <div className="channel-info">
                   <span className="channel-type">Professional Network</span>
                   <span className="channel-title">LinkedIn Profile</span>
-                  <span className="channel-hint">Connect with Founders ↗</span>
+                  <span className="channel-hint">Connect with Founders</span>
                 </div>
                 <span className="channel-arrow">↗</span>
               </a>
@@ -696,7 +799,7 @@ export default function App() {
                 <div className="channel-info">
                   <span className="channel-type">Studio Culture</span>
                   <span className="channel-title">Instagram Page</span>
-                  <span className="channel-hint">Behind the scenes ↗</span>
+                  <span className="channel-hint">Behind the scenes</span>
                 </div>
                 <span className="channel-arrow">↗</span>
               </a>
