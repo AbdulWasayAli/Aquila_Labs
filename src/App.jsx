@@ -4,7 +4,6 @@ import Logo from './Logo'
 export default function App() {
   const [theme, setTheme] = useState('dark')
   const [showScroll, setShowScroll] = useState(false)
-  const [isScrolled, setIsScrolled] = useState(false)
 
   useEffect(() => {
     document.body.setAttribute('data-theme', theme)
@@ -12,15 +11,13 @@ export default function App() {
 
   useEffect(() => {
     const checkScroll = () => {
-      setIsScrolled(window.scrollY > 50)
       if (window.scrollY > 300) {
         setShowScroll(true)
       } else {
         setShowScroll(false)
       }
     }
-    checkScroll()
-    window.addEventListener('scroll', checkScroll, { passive: true })
+    window.addEventListener('scroll', checkScroll)
     return () => window.removeEventListener('scroll', checkScroll)
   }, [])
 
@@ -124,7 +121,7 @@ export default function App() {
 
   return (
     <div id="top">
-      <nav className={`navbar ${isScrolled ? 'navbar-scrolled' : ''}`}>
+      <nav className="navbar">
         <div className="container nav-content">
           <a
             href="/"
