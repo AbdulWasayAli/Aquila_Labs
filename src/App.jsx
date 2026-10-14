@@ -1,6 +1,17 @@
+import { useState, useEffect } from 'react'
 import Logo from './Logo'
 
 export default function App() {
+  const [theme, setTheme] = useState('dark')
+
+  useEffect(() => {
+    document.body.setAttribute('data-theme', theme)
+  }, [theme])
+
+  const toggleTheme = () => {
+    setTheme(prev => (prev === 'dark' ? 'light' : 'dark'))
+  }
+
   const services = [
     {
       title: 'Full-Stack Web Apps',
@@ -70,28 +81,60 @@ export default function App() {
 
       <nav className="navbar">
         <div className="container nav-content">
-          <a href="#" className="brand">
-            <Logo size={38} />
+          <a href="#" className="brand" title="Aquila Labs">
+            <div className="brand-logo-wrapper">
+              <Logo size={40} />
+            </div>
             <span className="brand-text">
               Aquila <span>Labs</span>
             </span>
           </a>
 
-          <div className="nav-links">
-            <a href="#services">Services</a>
-            <a href="#process">Process</a>
-            <a href="#tech">Technologies</a>
-            <a href="#connect" className="btn-primary">
+          <div className="nav-right">
+            <div className="nav-links">
+              <a href="#services">Services</a>
+              <a href="#process">Process</a>
+              <a href="#tech">Stack</a>
+              <a href="#connect">Connect</a>
+            </div>
+
+            <a href="#connect" className="btn-nav">
               Contact Team
             </a>
+
+            <button
+              onClick={toggleTheme}
+              className="theme-switch-btn"
+              type="button"
+              aria-label="Toggle visual theme"
+              title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+            >
+              {theme === 'dark' ? (
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="12" r="5"></circle>
+                  <line x1="12" y1="1" x2="12" y2="3"></line>
+                  <line x1="12" y1="21" x2="12" y2="23"></line>
+                  <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                  <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                  <line x1="1" y1="12" x2="3" y2="12"></line>
+                  <line x1="21" y1="12" x2="23" y2="12"></line>
+                  <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                  <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                </svg>
+              ) : (
+                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                </svg>
+              )}
+            </button>
           </div>
         </div>
       </nav>
 
       <header className="hero">
-        <div className="container">
+        <div className="container hero-center">
           <div className="hero-logo-box">
-            <Logo size={110} variant="badge" />
+            <Logo size={96} variant="badge" />
           </div>
 
           <div className="hero-badge">
@@ -153,7 +196,7 @@ export default function App() {
             {services.map((item, index) => (
               <div key={index} className="card">
                 <div className="card-icon">
-                  <Logo size={22} />
+                  <Logo size={24} />
                 </div>
                 <h3 className="card-title">{item.title}</h3>
                 <p className="card-desc">{item.desc}</p>
@@ -243,7 +286,56 @@ export default function App() {
 
       <footer className="footer">
         <div className="container">
-          <p>© {new Date().getFullYear()} Aquila Labs. All rights reserved.</p>
+          <div className="footer-top">
+            <div className="footer-brand">
+              <div className="brand">
+                <div className="brand-logo-wrapper">
+                  <Logo size={32} />
+                </div>
+                <span className="brand-text">
+                  Aquila <span>Labs</span>
+                </span>
+              </div>
+              <p>
+                A modern digital innovation studio delivering high-performance web,
+                mobile, and custom software systems globally.
+              </p>
+            </div>
+
+            <div className="footer-col">
+              <h5>Navigation</h5>
+              <ul>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#process">Process</a></li>
+                <li><a href="#tech">Tech Stack</a></li>
+                <li><a href="#connect">Contact</a></li>
+              </ul>
+            </div>
+
+            <div className="footer-col">
+              <h5>Services</h5>
+              <ul>
+                <li><a href="#services">Web Development</a></li>
+                <li><a href="#services">Mobile Applications</a></li>
+                <li><a href="#services">UI / UX Design</a></li>
+                <li><a href="#services">Cloud & Automation</a></li>
+              </ul>
+            </div>
+
+            <div className="footer-col">
+              <h5>Social Channels</h5>
+              <ul>
+                <li><a href="https://linkedin.com" target="_blank" rel="noreferrer">LinkedIn</a></li>
+                <li><a href="https://instagram.com" target="_blank" rel="noreferrer">Instagram</a></li>
+                <li><a href="mailto:contact@aquilalabs.com">Email Us</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="footer-bottom">
+            <p>© {new Date().getFullYear()} Aquila Labs. All rights reserved.</p>
+            <p>Engineered for Speed & Scalability</p>
+          </div>
         </div>
       </footer>
     </div>
