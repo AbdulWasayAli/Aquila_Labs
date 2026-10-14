@@ -92,6 +92,33 @@ export default function App() {
     'Firebase',
   ]
 
+  const team = [
+    {
+      initials: '01',
+      name: 'Coming Soon',
+      role: 'Core Team',
+      desc: 'Architecting high-scale digital solutions and strategic technology roadmap.',
+    },
+    {
+      initials: '02',
+      name: 'Coming Soon',
+      role: 'Core Team',
+      desc: 'Engineering performant full-stack systems and cloud infrastructure.',
+    },
+    {
+      initials: '03',
+      name: 'Coming Soon',
+      role: 'Core Team',
+      desc: 'Leading intuitive user experience, UI design systems, and visual identity.',
+    },
+    {
+      initials: '04',
+      name: 'Coming Soon',
+      role: 'Core Team',
+      desc: 'Driving product growth, technical delivery, and client partnerships.',
+    },
+  ]
+
   return (
     <div id="top">
       <nav className="navbar">
@@ -118,6 +145,7 @@ export default function App() {
             <div className="nav-links">
               <a href="#services">Services</a>
               <a href="#process">Process</a>
+              <a href="#team">Team</a>
               <a href="#tech">Stack</a>
               <a href="#connect">Connect</a>
             </div>
@@ -157,27 +185,22 @@ export default function App() {
 
       <header className="hero">
         <div className="container hero-center">
-          <div className="hero-badge">
-            <span className="badge-dot"></span>
-            Next-Gen Software & Digital Innovation Lab
-          </div>
-
           <h1 className="hero-title">
-            Transforming Ideas Into <br />
-            <span className="gradient-text">High-Impact Tech Products</span>
+            Engineering Digital Products <br />
+            <span className="gradient-text">That Define The Future</span>
           </h1>
 
           <p className="hero-subtitle">
-            Aquila Labs is a dedicated modern software studio. We design, engineer,
-            and scale high-performance web platforms, mobile apps, and custom digital solutions.
+            Aquila Labs is an elite software innovation studio. We architect, design,
+            and scale modern web applications, mobile platforms, and high-performance custom digital systems.
           </p>
 
           <div className="hero-actions">
             <a href="#services" className="btn-primary">
-              View Capabilities
+              Explore Our Work
             </a>
             <a href="#connect" className="btn-secondary">
-              Start A Project
+              Let's Talk
             </a>
           </div>
 
@@ -242,6 +265,29 @@ export default function App() {
                 <div className="step-num">{step.num}</div>
                 <h3 className="card-title">{step.title}</h3>
                 <p className="card-desc">{step.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="team" className="section">
+        <div className="container">
+          <div className="section-head">
+            <span className="section-tag">Leadership</span>
+            <h2 className="section-title">People Behind Aquila Labs</h2>
+            <p className="section-desc">
+              Passionate technologists and designers dedicated to engineering exceptional software.
+            </p>
+          </div>
+
+          <div className="grid-4">
+            {team.map((member, index) => (
+              <div key={index} className="card">
+                <div className="team-avatar">{member.initials}</div>
+                <span className="team-role">{member.role}</span>
+                <h3 className="card-title">{member.name}</h3>
+                <p className="card-desc">{member.desc}</p>
               </div>
             ))}
           </div>
