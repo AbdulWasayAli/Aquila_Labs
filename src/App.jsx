@@ -154,7 +154,7 @@ export default function App() {
           <div className="hero-art" aria-label="Abstract illustration of connected digital product layers" role="img">
             <div className="art-wash" /><div className="hero-orbit orbit-one" /><div className="hero-orbit orbit-two" />
             <div className="art-label label-one">THOUGHTFUL BY DESIGN <span>↗</span></div><div className="art-label label-two">ENGINEERED TO SCALE <span>↗</span></div>
-            <div className="art-core"><div className="core-mark"><img src={logo} alt="" /></div><span>Human insight<br />meets technology.</span><i>✳</i></div>
+            <div className="art-core"><div className="core-mark"><Logo size={36} /></div><span>Human insight<br />meets technology.</span><i>✳</i></div>
             <div className="art-node node-one">✳</div><div className="art-node node-two">↗</div><div className="art-node node-three">◌</div>
             <span className="art-index">AQL / 001</span>
           </div>
