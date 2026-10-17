@@ -1,1008 +1,192 @@
-import { useState, useEffect, useRef } from 'react'
-import Logo from './Logo'
+import { useEffect, useState } from 'react'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { Toaster, toast } from 'sonner'
+import logo from './assets/images/aquila-full-logo-without-background.png'
+import ibrahamPhoto from './assets/images/ibraham-daniyal.jpeg'
+import wasayPhoto from './assets/images/abdul-wasay.jpg'
+
+gsap.registerPlugin(ScrollTrigger)
+
+const services = [
+  { title: 'Cloud & platforms', detail: 'Secure foundations, resilient APIs, and cloud infrastructure built to support your next stage.', stack: 'Cloud architecture · APIs · DevOps' },
+  { title: 'Product design', detail: 'Research-led UX, distinctive visual systems, and accessible interfaces people enjoy using.', stack: 'Research · UX/UI · Design systems' },
+  { title: 'AI & automation', detail: 'Practical AI features and intelligent workflows that remove friction and create room to grow.', stack: 'Applied AI · Agents · Workflow automation' },
+  { title: 'Business management software', detail: 'Connected systems that help teams manage operations, customers, inventory, and day-to-day work.', stack: 'CRM · ERP · Operations · Integrations' },
+  { title: 'Industry-level software', detail: 'Reliable, scalable software designed around the demanding needs of your industry and its users.', stack: 'Secure platforms · Data systems · Scale' },
+  { title: 'Custom software', detail: 'Purpose-built applications shaped around your workflows when off-the-shelf tools are not enough.', stack: 'Web · Mobile · Integrations · Automation' },
+]
+const team = [
+  { initials: 'AK', name: 'Abdul Kabeer', role: 'Mobile Application Developer' },
+  { initials: 'ID', name: 'Ibraham Daniyal', role: 'Full-Stack & Mobile App Developer', photo: ibrahamPhoto },
+  { initials: 'AW', name: 'Abdul Wasay', role: 'Full-Stack & AI Application Developer', photo: wasayPhoto },
+  { initials: 'AN', name: 'Anas', role: 'Mobile Application Developer' },
+]
+const testimonials = [
+  { quote: '“The best software partnerships start with listening. We take time to understand the people and work behind every product.”', byline: 'Aquila Labs team', context: 'OUR PRINCIPLE' },
+  { quote: '“Good technology should make the complicated feel clear, and leave people feeling more capable.”', byline: 'Aquila Labs team', context: 'OUR PRINCIPLE' },
+  { quote: '“A thoughtful first version is the beginning of a product—not the end of the conversation.”', byline: 'Aquila Labs team', context: 'OUR PRINCIPLE' },
+]
+const socialLinks = [
+  { name: 'Instagram', href: 'https://www.instagram.com/theaquilalabs/', handle: '@theaquilalabs' },
+  { name: 'LinkedIn', href: 'https://www.linkedin.com/company/theaquilalabs', handle: 'Aquila Labs' },
+]
+const projects = [
+  { number: '01', kind: 'AI · OPERATIONS', title: 'A clearer way to work with AI.', detail: 'An intelligent operations workspace that turns fragmented tasks into a focused, human-friendly workflow.', result: 'One calm workspace. A faster team.', visual: 'ai' },
+  { number: '02', kind: 'FINTECH · DATA', title: 'Complex financial data, made clear.', detail: 'A decision-making interface that brings live financial signals into focus for the people who need them.', result: 'Better visibility. Confident decisions.', visual: 'finance' },
+  { number: '03', kind: 'HEALTH · CARE', title: 'More connected care experiences.', detail: 'A considered digital front door that helps patients and care teams move through each step with confidence.', result: 'A more human digital journey.', visual: 'care' },
+]
+const steps = [
+  ['01', 'Understand', 'We start with your people, the real challenge, and the outcome that matters.'],
+  ['02', 'Shape', 'A clear plan, a useful prototype, and shared confidence in what we are making.'],
+  ['03', 'Build', 'Thoughtful engineering, fast feedback, and visible progress at every step.'],
+  ['04', 'Grow', 'A confident launch, a dependable team, and room for the product to evolve.'],
+]
+const stacks = [
+  ['Product', 'React', 'Next.js', 'TypeScript', 'Flutter'],
+  ['Platform', 'Node.js', 'Python', 'PostgreSQL', 'GraphQL'],
+  ['Infrastructure', 'AWS', 'Docker', 'CI/CD', 'Kubernetes'],
+]
+
+function Arrow({ diagonal = false }) {
+  return <svg className="arrow-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d={diagonal ? 'M7 17 17 7M7 7h10v10' : 'M4 12h15m-6-6 6 6-6 6'} stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" /></svg>
+}
+
+function ProjectVisual({ type }) {
+  if (type === 'ai') return <div className="product-window ai-window"><div className="window-top"><span className="window-brand"><i /> orbit</span><span className="window-avatar">A</span></div><div className="window-body"><aside className="window-rail"><i /><i /><i /><i /></aside><div className="dashboard"><span className="ui-eyebrow">YOUR WORKSPACE</span><div className="ui-title">Good morning, Alex</div><div className="ui-muted">Here’s your team’s focus for today.</div><div className="task-panel"><div className="task-icon">✳</div><div><b>Weekly product brief</b><small>Ready to review · Updated just now</small></div><span className="task-check">✓</span></div><div className="mini-cards"><div><span>In progress</span><b>08</b><i><em /></i></div><div><span>Completed</span><b>24</b><i><em /></i></div></div></div></div></div>
+  if (type === 'finance') return <div className="product-window finance-window"><div className="finance-head"><span>Portfolio overview <b>⌄</b></span><small>Last 30 days&nbsp; ↗</small></div><div className="finance-total">$2,840,520 <span>+12.8%</span></div><div className="chart-wrap"><div className="chart-labels"><i>$3.0m</i><i>$2.5m</i><i>$2.0m</i></div><svg className="chart" viewBox="0 0 500 160" preserveAspectRatio="none" aria-label="Rising portfolio trend"><defs><linearGradient id="chart-fill" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stopColor="#c5f165" stopOpacity=".28"/><stop offset="1" stopColor="#c5f165" stopOpacity="0"/></linearGradient></defs><path d="M0 130 C25 120,35 134,58 107 S92 117,112 91 S150 99,172 68 S202 96,226 65 S258 75,278 53 S310 69,331 41 S365 62,387 26 S425 48,442 29 S476 37,500 6 V160 H0Z" fill="url(#chart-fill)"/><path d="M0 130 C25 120,35 134,58 107 S92 117,112 91 S150 99,172 68 S202 96,226 65 S258 75,278 53 S310 69,331 41 S365 62,387 26 S425 48,442 29 S476 37,500 6" fill="none" stroke="#9cc84c" strokeWidth="2.5" vectorEffect="non-scaling-stroke"/></svg></div><div className="finance-foot"><span>01 MAY</span><span>10 MAY</span><span>20 MAY</span><span>30 MAY</span></div></div>
+  return <div className="product-window care-window"><div className="care-side"><div className="care-logo">care<span>+</span></div><div className="care-nav active">⌂ &nbsp;Overview</div><div className="care-nav">▣ &nbsp;Appointments</div><div className="care-nav">♡ &nbsp;My health</div><div className="care-user"><i>JM</i><span>Jordan Miller<small>Patient account</small></span></div></div><div className="care-main"><div className="care-greeting">MONDAY, MAY 27</div><div className="care-title">Hello, Jordan <span>✳</span></div><div className="care-banner"><div><small>YOUR NEXT APPOINTMENT</small><b>Dr. Sarah Chen</b><span>Tomorrow · 10:30 AM · Video visit</span></div><i>↗</i></div><div className="care-lower"><div><small>CARE PLAN</small><b>Looking good</b><span>3 of 4 goals this week</span><div className="progress-track"><i /></div></div><div className="care-doctor"><i>SC</i><small>YOUR CARE TEAM</small><b>Sarah Chen, MD</b></div></div></div></div>
+}
 
 export default function App() {
-  const [theme, setTheme] = useState('dark')
-  const [showScroll, setShowScroll] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
+  const [activeService, setActiveService] = useState(0)
   const [isScrolled, setIsScrolled] = useState(false)
-  const reviewsTrackRef = useRef(null)
-  const isDraggingRef = useRef(false)
-  const startXRef = useRef(0)
-  const scrollLeftRef = useRef(0)
-
-  const trustTrackRef = useRef(null)
-  const isTrustDraggingRef = useRef(false)
-  const startTrustXRef = useRef(0)
-  const scrollTrustLeftRef = useRef(0)
+  const [emailCopied, setEmailCopied] = useState(false)
+  const [formState, setFormState] = useState({ status: 'idle', message: '' })
 
   useEffect(() => {
-    document.body.setAttribute('data-theme', theme)
-  }, [theme])
-
-  useEffect(() => {
-    const checkScroll = () => {
-      setIsScrolled(window.scrollY > 40)
-      if (window.scrollY > 300) {
-        setShowScroll(true)
-      } else {
-        setShowScroll(false)
-      }
-    }
-    checkScroll()
-    window.addEventListener('scroll', checkScroll, { passive: true })
-    return () => window.removeEventListener('scroll', checkScroll)
+    const updateHeader = () => setIsScrolled(window.scrollY > 24)
+    updateHeader()
+    window.addEventListener('scroll', updateHeader, { passive: true })
+    const media = gsap.matchMedia()
+    media.add('(prefers-reduced-motion: no-preference)', () => {
+      gsap.from('.hero-copy > *', { y: 24, opacity: 0, duration: .8, stagger: .1, ease: 'power3.out', delay: .12 })
+      gsap.utils.toArray('.reveal').forEach((element) => gsap.from(element, { y: 28, opacity: 0, duration: .75, ease: 'power3.out', scrollTrigger: { trigger: element, start: 'top 88%', once: true } }))
+      gsap.from('.project-row', { y: 30, opacity: 0, duration: .7, stagger: .15, ease: 'power3.out', scrollTrigger: { trigger: '.projects-list', start: 'top 82%', once: true } })
+      gsap.from('.team-card', { y: 28, opacity: 0, duration: .7, stagger: .13, ease: 'power3.out', scrollTrigger: { trigger: '.team-grid', start: 'top 84%', once: true } })
+      gsap.from('.value-card', { y: 22, opacity: 0, duration: .6, stagger: .12, ease: 'power2.out', scrollTrigger: { trigger: '.values-grid', start: 'top 86%', once: true } })
+      gsap.from('.stack-group', { x: 20, opacity: 0, duration: .55, stagger: .1, ease: 'power2.out', scrollTrigger: { trigger: '.stack-groups', start: 'top 88%', once: true } })
+      gsap.from('.product-card', { y: 24, opacity: 0, duration: .8, ease: 'power3.out', scrollTrigger: { trigger: '.products-layout', start: 'top 82%', once: true } })
+      gsap.from('.contact-option', { y: 12, opacity: 0, duration: .45, stagger: .1, ease: 'power2.out', scrollTrigger: { trigger: '.contact-options', start: 'top 90%', once: true } })
+      gsap.to('.product-symbol > span', { rotation: 45, duration: 18, repeat: -1, ease: 'none' })
+      gsap.to('.hero-orbit', { rotation: 35, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 } })
+    })
+    return () => { media.revert(); window.removeEventListener('scroll', updateHeader) }
   }, [])
 
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' })
+  const closeMenu = () => setMenuOpen(false)
+  const handleEnquiry = async (event) => {
+    event.preventDefault()
+    setFormState({ status: 'sending', message: 'Sending your message securely…' })
+    const form = event.currentTarget
+    const data = new FormData(form)
+    const payload = Object.fromEntries(data.entries())
+    payload._subject = `Project enquiry from ${payload.name}`
+    payload._replyto = payload.email
+    delete payload.email
+    try {
+      const response = await fetch('https://formsubmit.co/ajax/aquilalabs4@gmail.com', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(payload),
+      })
+      const result = await response.json()
+      if (!response.ok || result.success === 'false' || result.success === false) throw new Error(result.message || 'We could not send your message right now.')
+      setFormState({ status: 'success', message: 'Your enquiry has been received. Aquila will answer your email within 24 hours.' })
+      toast.success('Aquila will answer your email within 24 hours', { description: 'Your enquiry has been received. Thanks for getting in touch.' })
+      form.reset()
+    } catch (error) {
+      const message = `${error.message || 'Something went wrong.'} You can email us directly at aquilalabs4@gmail.com.`
+      setFormState({ status: 'error', message })
+      toast.error('Your message could not be sent', { description: 'Please try again or email aquilalabs4@gmail.com directly.' })
+    }
   }
-
-  const toggleTheme = () => {
-    setTheme(prev => (prev === 'dark' ? 'light' : 'dark'))
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText('aquilalabs4@gmail.com')
+      setEmailCopied(true)
+      toast.success('Email address copied')
+      window.setTimeout(() => setEmailCopied(false), 2200)
+    } catch {
+      toast.error('Could not copy the address', { description: 'Please email aquilalabs4@gmail.com directly.' })
+      window.location.href = 'mailto:aquilalabs4@gmail.com'
+    }
   }
+  return <div className="site-shell">
+    <Toaster position="bottom-right" theme="light" duration={5200} closeButton={false} toastOptions={{ className: 'aquila-toast' }} />
+    <a className="skip-link" href="#main">Skip to content</a>
+    <header className={`navbar${isScrolled ? ' scrolled' : ''}`}>
+      <div className="container nav-inner">
+        <a className="nav-brand" href="#home" aria-label="Aquila Labs home"><img src={logo} alt="Aquila Labs" /></a>
+        <nav className={`nav-links${menuOpen ? ' open' : ''}`} id="primary-navigation" aria-label="Main navigation">
+          {[['Services', 'services'], ['Products', 'products'], ['Team', 'team'], ['Work', 'work'], ['About', 'about']].map(([label, id]) => <a key={id} href={`#${id}`} onClick={closeMenu}>{label}</a>)}
+          <a className="mobile-nav-cta" href="#contact" onClick={closeMenu}>Start a project <Arrow diagonal /></a>
+        </nav>
+        <a className="nav-cta" href="#contact">Let’s talk <Arrow diagonal /></a>
+        <button className={`nav-menu-btn${menuOpen ? ' active' : ''}`} type="button" aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'} aria-expanded={menuOpen} aria-controls="primary-navigation" onClick={() => setMenuOpen(!menuOpen)}><span /><span /></button>
+      </div>
+    </header>
 
-
-  const handleCardMouseMove = (e) => {
-    const card = e.currentTarget
-    const rect = card.getBoundingClientRect()
-    const x = e.clientX - rect.left
-    const y = e.clientY - rect.top
-    const centerX = rect.width / 2
-    const centerY = rect.height / 2
-
-
-    const rotateX = ((centerY - y) / centerY) * 12
-    const rotateY = ((x - centerX) / centerX) * 12
-
-    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px) scale3d(1.02, 1.02, 1.02)`
-    card.style.setProperty('--mouse-x', `${(x / rect.width) * 100}%`)
-    card.style.setProperty('--mouse-y', `${(y / rect.height) * 100}%`)
-  }
-
-  const handleCardMouseLeave = (e) => {
-    const card = e.currentTarget
-    card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px) scale3d(1, 1, 1)'
-    card.style.setProperty('--mouse-x', '50%')
-    card.style.setProperty('--mouse-y', '50%')
-  }
-
-  const services = [
-    {
-      num: '01',
-      tag: 'Web Architecture',
-      title: 'Full-Stack Web Apps',
-      desc: 'High-performance React, Next.js, and distributed backends architected for millisecond response times and rapid global scale.',
-      features: ['Server-Side Rendering', 'Micro-Frontends', 'Edge Deployment'],
-      accent: 'linear-gradient(135deg, #38bdf8, #818cf8)',
-      icon: (
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
-          <defs>
-            <linearGradient id="grad-web" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#38bdf8" />
-              <stop offset="100%" stopColor="#818cf8" />
-            </linearGradient>
-          </defs>
-          <rect x="2" y="3" width="20" height="14" rx="3" stroke="url(#grad-web)" strokeWidth="1.8" fill="rgba(56, 189, 248, 0.12)" />
-          <path d="M2 7h20" stroke="url(#grad-web)" strokeWidth="1.5" strokeOpacity="0.5" />
-          <circle cx="5" cy="5" r="1" fill="#38bdf8" />
-          <circle cx="8" cy="5" r="1" fill="#818cf8" />
-          <path d="M7 11.5l2 2-2 2M11 15.5h4" stroke="url(#grad-web)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-          <path d="M8 21h8M12 17v4" stroke="url(#grad-web)" strokeWidth="1.8" strokeLinecap="round" />
-        </svg>
-      ),
-    },
-    {
-      num: '02',
-      tag: 'Native & Hybrid',
-      title: 'Mobile App Development',
-      desc: 'Cross-platform iOS and Android apps with 120fps fluid animations, offline-first sync, and native module bridges.',
-      features: ['Flutter & React Native', 'Offline-First DB', 'Smooth Gestures'],
-      accent: 'linear-gradient(135deg, #818cf8, #c084fc)',
-      icon: (
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
-          <defs>
-            <linearGradient id="grad-mob" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#818cf8" />
-              <stop offset="100%" stopColor="#c084fc" />
-            </linearGradient>
-          </defs>
-          <rect x="5" y="2" width="14" height="20" rx="3.5" stroke="url(#grad-mob)" strokeWidth="1.8" fill="rgba(129, 140, 248, 0.12)" />
-          <path d="M9.5 5h5" stroke="url(#grad-mob)" strokeWidth="1.5" strokeLinecap="round" strokeOpacity="0.7" />
-          <circle cx="12" cy="18" r="1.2" fill="#c084fc" />
-          <path d="M8 9h8M8 12h5" stroke="url(#grad-mob)" strokeWidth="1.5" strokeLinecap="round" strokeOpacity="0.6" />
-        </svg>
-      ),
-    },
-    {
-      num: '03',
-      tag: 'Product Strategy',
-      title: 'UI / UX Product Design',
-      desc: 'World-class user interfaces, production-ready Figma design systems, and seamless user experiences tuned for conversion.',
-      features: ['Design Systems', 'Micro-Interactions', 'Interactive Prototypes'],
-      accent: 'linear-gradient(135deg, #38bdf8, #34d399)',
-      icon: (
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
-          <defs>
-            <linearGradient id="grad-design" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#38bdf8" />
-              <stop offset="100%" stopColor="#34d399" />
-            </linearGradient>
-          </defs>
-          <rect x="3" y="3" width="8" height="8" rx="2" stroke="url(#grad-design)" strokeWidth="1.8" fill="rgba(56, 189, 248, 0.15)" />
-          <rect x="13" y="3" width="8" height="8" rx="2" stroke="url(#grad-design)" strokeWidth="1.8" strokeDasharray="2 2" />
-          <rect x="13" y="13" width="8" height="8" rx="2" stroke="url(#grad-design)" strokeWidth="1.8" fill="rgba(52, 211, 153, 0.15)" />
-          <circle cx="7" cy="17" r="4" stroke="url(#grad-design)" strokeWidth="1.8" fill="rgba(56, 189, 248, 0.1)" />
-        </svg>
-      ),
-    },
-    {
-      num: '04',
-      tag: 'Backend & DevOps',
-      title: 'Cloud & API Integration',
-      desc: 'Resilient cloud infrastructure, GraphQL & REST APIs, event-driven pipelines, and automated continuous delivery.',
-      features: ['AWS & Google Cloud', 'CI/CD Pipelines', 'Zero-Downtime Releases'],
-      accent: 'linear-gradient(135deg, #38bdf8, #6366f1)',
-      icon: (
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
-          <defs>
-            <linearGradient id="grad-cloud" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#38bdf8" />
-              <stop offset="100%" stopColor="#6366f1" />
-            </linearGradient>
-          </defs>
-          <path d="M6.5 19a4.5 4.5 0 0 1-.5-8.97A7 7 0 0 1 19.5 13a4.5 4.5 0 0 1-1.5 8.75H6.5z" stroke="url(#grad-cloud)" strokeWidth="1.8" fill="rgba(56, 189, 248, 0.12)" />
-          <path d="M12 11v6M9.5 14.5l2.5 2.5 2.5-2.5" stroke="url(#grad-cloud)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-      ),
-    },
-    {
-      num: '05',
-      tag: 'Intelligence',
-      title: 'AI & Smart Automation',
-      desc: 'Embedding custom LLM agents, semantic vector search, autonomous workflows, and real-time inference into your product.',
-      features: ['Autonomous Agents', 'Vector Databases', 'Prompt Engineering'],
-      accent: 'linear-gradient(135deg, #06b6d4, #a855f7)',
-      icon: (
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
-          <defs>
-            <linearGradient id="grad-ai" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#06b6d4" />
-              <stop offset="100%" stopColor="#a855f7" />
-            </linearGradient>
-          </defs>
-          <path d="M12 2l2.4 5.6L20 10l-4.5 4.2 1.2 6.1-4.7-3-4.7 3 1.2-6.1L4 10l5.6-2.4L12 2z" stroke="url(#grad-ai)" strokeWidth="1.8" fill="rgba(6, 182, 212, 0.12)" strokeLinejoin="round" />
-          <circle cx="12" cy="11.5" r="2" fill="#06b6d4" />
-          <circle cx="12" cy="11.5" r="4.5" stroke="url(#grad-ai)" strokeWidth="1" strokeDasharray="2 2" />
-        </svg>
-      ),
-    },
-    {
-      num: '06',
-      tag: 'Visual Identity',
-      title: 'Branding & Design Identity',
-      desc: 'Memorable digital brand identity, iconic logo systems, typography palettes, and coherent visual guidelines for startups.',
-      features: ['Logo Systems', 'Brand Guidelines', 'Marketing Collateral'],
-      accent: 'linear-gradient(135deg, #ec4899, #8b5cf6)',
-      icon: (
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
-          <defs>
-            <linearGradient id="grad-brand" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#ec4899" />
-              <stop offset="100%" stopColor="#8b5cf6" />
-            </linearGradient>
-          </defs>
-          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="url(#grad-brand)" strokeWidth="1.8" fill="rgba(236, 72, 153, 0.12)" strokeLinejoin="round" />
-          <path d="M9 12l2 2 4-4" stroke="url(#grad-brand)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-      ),
-    },
-  ]
-
-  const steps = [
-    {
-      num: '01',
-      title: 'Discovery & Strategy',
-      desc: 'We analyze your concept, target market, and define clear architecture goals.',
-    },
-    {
-      num: '02',
-      title: 'Design & Prototype',
-      desc: 'Interactive Figma prototypes ensuring pixel-perfect modern aesthetic.',
-    },
-    {
-      num: '03',
-      title: 'Agile Engineering',
-      desc: 'Clean, modular, and performant code delivered with continuous progress updates.',
-    },
-    {
-      num: '04',
-      title: 'Launch & Expansion',
-      desc: 'Stress testing, seamless deployment, and continuous optimization for growth.',
-    },
-  ]
-
-  const techCategories = [
-    {
-      category: 'Frontend & Platforms',
-      badge: 'Client Systems',
-      desc: 'Blazing fast, 60fps responsive interfaces and native cross-platform engines.',
-      icon: '⚡',
-      accent: 'linear-gradient(135deg, #38bdf8, #818cf8)',
-      stack: [
-        { name: 'React 19', role: 'Component Core' },
-        { name: 'Next.js 15', role: 'Full-Stack SSR' },
-        { name: 'TypeScript', role: 'Type Safety' },
-        { name: 'Flutter', role: 'iOS & Android' },
-        { name: 'Tailwind CSS', role: 'Design Engine' },
-      ],
-    },
-    {
-      category: 'Distributed Backend',
-      badge: 'Core Services',
-      desc: 'High-throughput microservices, real-time WebSockets, and low-latency APIs.',
-      icon: '🛡️',
-      accent: 'linear-gradient(135deg, #818cf8, #c084fc)',
-      stack: [
-        { name: 'Node.js', role: 'Async Runtimes' },
-        { name: 'Python', role: 'Microservices & AI' },
-        { name: 'Go (Golang)', role: 'Low Latency Services' },
-        { name: 'PostgreSQL', role: 'Relational DB' },
-        { name: 'Redis', role: 'Sub-millisecond Cache' },
-      ],
-    },
-    {
-      category: 'Cloud, DevOps & Infra',
-      badge: 'Zero-Downtime',
-      desc: 'Production-ready orchestration, resilient CI/CD pipelines, and multi-region deployment.',
-      icon: '☁️',
-      accent: 'linear-gradient(135deg, #06b6d4, #3b82f6)',
-      stack: [
-        { name: 'AWS & GCP', role: 'Cloud Infrastructure' },
-        { name: 'Docker', role: 'Containerization' },
-        { name: 'Kubernetes', role: 'Orchestration' },
-        { name: 'GitHub Actions', role: 'Automated CI/CD' },
-        { name: 'Terraform', role: 'Infra as Code' },
-      ],
-    },
-    {
-      category: 'AI, Models & Vector DBs',
-      badge: 'Intelligence',
-      desc: 'Autonomous LLM agents, high-dimensional vector search, and fine-tuned pipelines.',
-      icon: '🧠',
-      accent: 'linear-gradient(135deg, #ec4899, #8b5cf6)',
-      stack: [
-        { name: 'OpenAI / Claude', role: 'Foundation Models' },
-        { name: 'LangChain / LlamaIndex', role: 'Agentic Workflows' },
-        { name: 'Pinecone / Qdrant', role: 'Vector Embeddings' },
-        { name: 'PyTorch', role: 'Model Inference' },
-        { name: 'FastAPI', role: 'Model Serving' },
-      ],
-    },
-  ]
-
-  const trustedCompanies = [
-    'TechNova Systems',
-    'Apex Financial',
-    'Vanguard Health',
-    'HyperScale AI',
-    'OmniCloud Media',
-    'Aether Robotics',
-  ]
-
-  const featuredProjects = [
-    {
-      tag: 'AI Platform',
-      icon: '⚡',
-      title: 'Enterprise LLM Workflow Engine',
-      desc: 'High-throughput AI pipeline with millisecond semantic retrieval, vector memory indexing, and autonomous model orchestration.',
-      badge: 'Case Study Soon',
-      metric: '10x Faster Query Latency',
-      tech: ['React', 'Python', 'FastAPI', 'PgVector', 'Tailwind'],
-      glow: 'rgba(56, 189, 248, 0.18)',
-    },
-    {
-      tag: 'FinTech App',
-      icon: '💎',
-      title: 'Decentralized Asset Dashboard',
-      desc: 'Institutional analytics terminal delivering real-time block streaming, algorithmic portfolio rebalancing, and automated compliance.',
-      badge: 'Case Study Soon',
-      metric: '$40M+ Volume Processed',
-      tech: ['Next.js', 'TypeScript', 'Node.js', 'PostgreSQL', 'WebSockets'],
-      glow: 'rgba(129, 140, 248, 0.18)',
-    },
-    {
-      tag: 'Mobile Suite',
-      icon: '🩺',
-      title: 'Health & Telemedicine Platform',
-      desc: 'HIPAA-compliant native mobile ecosystem with sub-second video telemetry, secure clinical records, and remote sensor integration.',
-      badge: 'Case Study Soon',
-      metric: '99.99% Uptime SLA',
-      tech: ['React Native', 'GraphQL', 'AWS', 'WebRTC', 'Redis'],
-      glow: 'rgba(52, 211, 153, 0.18)',
-    },
-  ]
-
-  const testimonials = [
-    {
-      quote: 'Aquila Labs delivered our mission-critical SaaS ahead of schedule. Their attention to performance, modern design, and architectural scalability is second to none.',
-      author: 'Marcus Vance',
-      role: 'Chief Technology Officer',
-      company: 'Apex Financial',
-      rating: 5,
-    },
-    {
-      quote: 'Working with Aquila Labs felt like having an elite Silicon Valley engineering wing inside our company. Our mobile app downloads grew 400% after their redesign.',
-      author: 'Sophia Chen',
-      role: 'Head of Product',
-      company: 'OmniCloud Media',
-      rating: 5,
-    },
-    {
-      quote: 'Exceptional engineering discipline. They took our complex AI workflow and turned it into an intuitive, lightning-fast platform that our enterprise clients love.',
-      author: 'David Sterling',
-      role: 'Founder & CEO',
-      company: 'HyperScale AI',
-      rating: 5,
-    },
-    {
-      quote: 'Flawless execution on our cloud infrastructure and real-time dashboard. The team communicates with absolute clarity and precision.',
-      author: 'Elena Rostova',
-      role: 'VP of Engineering',
-      company: 'TechNova Systems',
-      rating: 5,
-    },
-  ]
-
-  const team = [
-    {
-      badge: 'Founder / Architecture',
-      name: 'Coming Soon',
-      role: 'System & Distributed Engineering',
-      desc: 'Specializing in high-concurrency systems, low-latency microservices, and enterprise cloud architecture.',
-      skills: ['Cloud Architecture', 'Distributed Systems', 'Go / Node'],
-      avatarIcon: '⚡',
-    },
-    {
-      badge: 'Frontend Engineering',
-      name: 'Coming Soon',
-      role: 'Frontend & UI Performance',
-      desc: 'Specializing in cutting-edge Next.js interfaces, 60fps animations, WebGL, and design systems.',
-      skills: ['Next.js / React', 'TypeScript', 'Design Systems'],
-      avatarIcon: '🎨',
-    },
-    {
-      badge: 'Native Platforms',
-      name: 'Coming Soon',
-      role: 'iOS & Android Systems',
-      desc: 'Pioneering cross-platform architectures with native-grade performance and real-time offline sync.',
-      skills: ['Flutter', 'React Native', 'Mobile Security'],
-      avatarIcon: '📱',
-    },
-    {
-      badge: 'AI & Data Engineering',
-      name: 'Coming Soon',
-      role: 'Machine Learning & Agents',
-      desc: 'Developing specialized LLM agent systems, semantic retrieval engines, and high-volume data pipelines.',
-      skills: ['LLM Orchestration', 'Vector DBs', 'Python / PyTorch'],
-      avatarIcon: '🧠',
-    },
-  ]
-
-  return (
-    <div id="top">
-      <nav className={`navbar ${isScrolled ? 'navbar-scrolled' : ''}`}>
-        <div className="container nav-content">
-          <a
-            href="/"
-            onClick={(e) => {
-              e.preventDefault()
-              window.history.pushState(null, '', '/')
-              scrollToTop()
-            }}
-            className="brand"
-            title="Aquila Labs - Home"
-          >
-            <div className="brand-logo-glow">
-              <Logo size={40} />
-            </div>
-            <span className="brand-text">
-              Aquila <span>Labs</span>
-            </span>
-          </a>
-
-          <div className="nav-right">
-            <div className="nav-links">
-              <a href="#services">Services</a>
-              <a href="#work">Work</a>
-              <a href="#process">Process</a>
-              <a href="#team">Team</a>
-              <a href="#tech">Stack</a>
-              <a href="#testimonials">Reviews</a>
-              <a href="#connect">Connect</a>
-            </div>
-
-            <a href="#connect" className="btn-nav">
-              Contact Team
-            </a>
-
-            <button
-              onClick={toggleTheme}
-              className="theme-switch-btn"
-              type="button"
-              aria-label="Toggle visual theme"
-              title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
-            >
-              {theme === 'dark' ? (
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <circle cx="12" cy="12" r="5"></circle>
-                  <line x1="12" y1="1" x2="12" y2="3"></line>
-                  <line x1="12" y1="21" x2="12" y2="23"></line>
-                  <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                  <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                  <line x1="1" y1="12" x2="3" y2="12"></line>
-                  <line x1="21" y1="12" x2="23" y2="12"></line>
-                  <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                  <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                </svg>
-              ) : (
-                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                </svg>
-              )}
-            </button>
+    <main id="main">
+      <section className="hero" id="home">
+        <div className="container hero-layout">
+          <div className="hero-copy">
+            <div className="eyebrow"><span className="status-dot" /> INDEPENDENT DIGITAL PRODUCT STUDIO</div>
+            <h1>We make<br />technology feel<br /><span>more human.</span></h1>
+            <p>We partner with ambitious teams to design and build thoughtful digital products—from the first sketch to what comes next.</p>
+            <div className="hero-actions"><a className="button button-dark" href="#work">Explore our work <Arrow /></a><a className="text-link" href="#services">What we do <Arrow /></a></div>
+            <div className="hero-footnote"><span>STRATEGY&nbsp; · &nbsp;DESIGN&nbsp; · &nbsp;ENGINEERING</span><span>BUILT WITH CARE, EVERYWHERE.</span></div>
+          </div>
+          <div className="hero-art" aria-label="Abstract illustration of connected digital product layers" role="img">
+            <div className="art-wash" /><div className="hero-orbit orbit-one" /><div className="hero-orbit orbit-two" />
+            <div className="art-label label-one">THOUGHTFUL BY DESIGN <span>↗</span></div><div className="art-label label-two">ENGINEERED TO SCALE <span>↗</span></div>
+            <div className="art-core"><div className="core-mark"><img src={logo} alt="" /></div><span>Human insight<br />meets technology.</span><i>✳</i></div>
+            <div className="art-node node-one">✳</div><div className="art-node node-two">↗</div><div className="art-node node-three">◌</div>
+            <span className="art-index">AQL / 001</span>
           </div>
         </div>
-      </nav>
-
-      <header className="hero">
-        <div className="container hero-center">
-          <h1 className="hero-title">
-            Engineering Digital Products <br />
-            <span className="gradient-text">That Define The Future</span>
-          </h1>
-
-          <p className="hero-subtitle">
-            Aquila Labs is an elite software innovation studio. We architect, design,
-            and scale modern web applications, mobile platforms, and high-performance custom digital systems.
-          </p>
-
-          <div className="hero-actions">
-            <a href="#services" className="btn-primary">
-              Explore Our Work
-            </a>
-            <a href="#connect" className="btn-secondary">
-              Let's Talk
-            </a>
-          </div>
-
-          <div className="stats-bar">
-            <div className="stat-item">
-              <h4>100%</h4>
-              <p>Modern Tech Stack</p>
-            </div>
-            <div className="stat-item">
-              <h4>Rapid</h4>
-              <p>Development Velocity</p>
-            </div>
-            <div className="stat-item">
-              <h4>24/7</h4>
-              <p>Client Partnership</p>
-            </div>
-            <div className="stat-item">
-              <h4>Global</h4>
-              <p>Standard Quality</p>
-            </div>
-          </div>
-        </div>
-
-
-        <div className="trust-marquee-wrapper">
-          <p className="trust-marquee-label">Trusted by high-growth founders and forward-thinking enterprises</p>
-          <div
-            className="trust-marquee"
-            ref={trustTrackRef}
-            onMouseDown={(e) => {
-              isTrustDraggingRef.current = true
-              startTrustXRef.current = e.pageX - trustTrackRef.current.offsetLeft
-              scrollTrustLeftRef.current = trustTrackRef.current.scrollLeft
-              trustTrackRef.current.classList.add('is-dragging')
-            }}
-            onMouseLeave={() => {
-              isTrustDraggingRef.current = false
-              if (trustTrackRef.current) {
-                trustTrackRef.current.classList.remove('is-dragging')
-              }
-            }}
-            onMouseUp={() => {
-              isTrustDraggingRef.current = false
-              if (trustTrackRef.current) {
-                trustTrackRef.current.classList.remove('is-dragging')
-              }
-            }}
-            onMouseMove={(e) => {
-              if (!isTrustDraggingRef.current) return
-              e.preventDefault()
-              const x = e.pageX - trustTrackRef.current.offsetLeft
-              const walk = (x - startTrustXRef.current) * 1.5
-              trustTrackRef.current.scrollLeft = scrollTrustLeftRef.current - walk
-            }}
-            onWheel={(e) => {
-              if (e.deltaY !== 0) {
-                trustTrackRef.current.scrollLeft += e.deltaY * 0.8
-              }
-            }}
-          >
-            <div className="trust-marquee-track">
-              {trustedCompanies.concat(trustedCompanies).concat(trustedCompanies).map((company, index) => (
-                <div key={index} className="trust-company-pill">
-                  <span className="trust-bullet">✦</span>
-                  <span>{company}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </header>
-
-      <section id="services" className="section">
-        <div className="container">
-          <div className="section-head">
-            <span className="section-tag">Capabilities</span>
-            <h2 className="section-title">What We Specialize In</h2>
-            <p className="section-desc">
-              Comprehensive end-to-end technical engineering built for modern enterprises.
-            </p>
-          </div>
-
-          <div className="grid-3">
-            {services.map((item, index) => (
-              <div
-                key={index}
-                className="card service-card-premium interactive-3d-card"
-                style={{ '--service-accent': item.accent }}
-                onMouseMove={handleCardMouseMove}
-                onMouseLeave={handleCardMouseLeave}
-              >
-                <div className="service-card-top">
-                  <span className="service-tag-pill">{item.tag}</span>
-                  <span className="service-number-badge">{item.num}</span>
-                </div>
-
-                <div className="service-card-header">
-                  <div className="service-logo-box">
-                    {item.icon}
-                  </div>
-                  <h3 className="service-title-text">{item.title}</h3>
-                </div>
-
-                <p className="service-desc-text">{item.desc}</p>
-
-
-                <div className="service-features-list">
-                  {item.features.map((feat, fIdx) => (
-                    <span key={fIdx} className="service-feature-item">
-                      <span className="feature-check">✦</span>
-                      <span>{feat}</span>
-                    </span>
-                  ))}
-                </div>
-
-                <div className="service-card-bottom">
-                  <span className="service-explore-link">
-                    Explore Capability <span className="service-arrow">→</span>
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+        <div className="container hero-bottom"><span>GOOD WORK STARTS WITH GOOD QUESTIONS.</span><a href="#services" aria-label="Scroll to services">↓</a><span>SCROLL TO EXPLORE</span></div>
       </section>
 
-      <section id="process" className="section">
-        <div className="container">
-          <div className="section-head">
-            <span className="section-tag">Workflow</span>
-            <h2 className="section-title">How We Build</h2>
-            <p className="section-desc">
-              A transparent, agile roadmap turning vision into functional reality.
-            </p>
-          </div>
+      <section className="intro-strip reveal" id="about"><div className="container intro-layout"><span className="section-kicker">AQUILA LABS <span>—</span> WHO WE ARE</span><p>Technology moves fast.<br /><span>What matters is where it takes people.</span></p><div className="intro-aside">We bring clear thinking and careful craft to complex digital challenges, helping teams move forward with confidence.</div></div></section>
 
-          <div className="grid-3">
-            {steps.map((step, index) => (
-              <div
-                key={index}
-                className="process-step interactive-3d-card"
-                onMouseMove={handleCardMouseMove}
-                onMouseLeave={handleCardMouseLeave}
-              >
-                <div className="step-num">{step.num}</div>
-                <h3 className="card-title">{step.title}</h3>
-                <p className="card-desc">{step.desc}</p>
-              </div>
-            ))}
-          </div>
+      <section className="section services-section" id="services"><div className="container"><div className="section-heading reveal"><div><span className="section-kicker">01 / CAPABILITIES</span><h2>Good thinking.<br /><span>Beautifully built.</span></h2></div><p>From the first big question to the details people notice every day, we bring the right minds together to make it real.</p></div>
+        <div className="services-layout"><div className="services-list" role="tablist" aria-label="Our capabilities">{services.map((service, index) => <button key={service.title} type="button" role="tab" aria-selected={activeService === index} aria-controls="service-panel" id={`service-tab-${index}`} className={`service-tab${activeService === index ? ' selected' : ''}`} onClick={() => setActiveService(index)}><span>0{index + 1}</span><strong>{service.title}</strong><Arrow diagonal /></button>)}</div>
+          <div className="service-panel" role="tabpanel" id="service-panel" aria-labelledby={`service-tab-${activeService}`} key={activeService}><span className="panel-asterisk">✳</span><span className="section-kicker">FROM FIRST PRINCIPLES</span><h3>{services[activeService].title}</h3><p>{services[activeService].detail}</p><span className="panel-stack">{services[activeService].stack}</span><a href="#contact" className="panel-link">Let’s talk about it <Arrow /></a></div>
         </div>
-      </section>
+      </div></section>
 
-      <section id="team" className="section">
-        <div className="container">
-          <div className="section-head">
-            <span className="section-tag">Leadership</span>
-            <h2 className="section-title">People Behind Aquila Labs</h2>
-            <p className="section-desc">
-              Passionate technologists and designers dedicated to engineering exceptional software.
-            </p>
-          </div>
+      <section className="products-section" id="products"><div className="container products-layout"><div className="products-copy reveal"><span className="section-kicker">02 / BUILT BY US</span><h2>We build our<br /><span>own ideas, too.</span></h2><p>Our curiosity doesn’t stop at client work. We explore, prototype, and develop our own digital products—learning by making and sharing what we discover.</p><a href="#contact" className="panel-link">Ask us what we’re working on <Arrow /></a></div><div className="product-card"><div className="product-card-top"><span>INDEPENDENT R&D</span><span className="product-status"><i /> IN THE WORKSHOP</span></div><div className="product-symbol"><span>✳</span></div><div className="product-card-bottom"><span>IDEAS IN PROGRESS</span><p>New products.<br />Made with intention.</p><span>CONCEPT&nbsp; · &nbsp;PROTOTYPE&nbsp; · &nbsp;ITERATE</span></div></div></div></section>
 
-          <div className="grid-4">
-            {team.map((member, index) => (
-              <div
-                key={index}
-                className="card team-card-premium interactive-3d-card"
-                onMouseMove={handleCardMouseMove}
-                onMouseLeave={handleCardMouseLeave}
-              >
-                <div className="team-card-top-bar">
-                  <span className="team-spec-pill">{member.badge}</span>
-                </div>
+      <section className="team-section" id="team"><div className="container"><div className="section-heading reveal"><div><span className="section-kicker">03 / THE PEOPLE</span><h2>Small team.<br /><span>Shared ambition.</span></h2></div><p>Designers and developers working closely together, with direct communication from the first conversation to launch.</p></div><div className="team-grid">{team.map((person, index) => <article className={`team-card team-card-${index + 1}`} key={person.initials}><div className="team-avatar">{person.photo ? <img src={person.photo} alt={person.name} /> : <span>{person.initials}</span>}<i>✳</i></div><div className="team-person"><h3>{person.name}</h3><p>{person.role}</p></div></article>)}</div></div></section>
 
-                <div className="team-avatar-premium">
-                  <span className="team-avatar-emoji">{member.avatarIcon}</span>
-                  <div className="avatar-status-dot" title="Active Core Leadership"></div>
-                </div>
+      <section className="values-section"><div className="container"><div className="values-heading"><span className="section-kicker">04 / WHAT WE BELIEVE</span><h2>Good work leaves<br />people better off.</h2><p>Until we can share approved client reviews, here are a few principles that guide our work.</p></div><div className="values-grid">{testimonials.map((item, index) => <article className="value-card" key={item.context + index}><div className="value-stars" aria-label="Principle">✳ &nbsp; ✳ &nbsp; ✳</div><blockquote>{item.quote}</blockquote><div className="value-author"><span className="value-avatar">AL</span><span><strong>{item.byline}</strong><small>{item.context}</small></span></div></article>)}</div><p className="values-note">These are studio principles, not client testimonials.</p></div></section>
 
-                <h3 className="team-member-name">{member.name}</h3>
-                <span className="team-member-role">{member.role}</span>
-                <p className="team-member-desc">{member.desc}</p>
+      <section className="work-section" id="work"><div className="container"><div className="section-heading work-heading reveal"><div><span className="section-kicker">02 / SELECTED WORK</span><h2>Made for the<br /><span>real world.</span></h2></div><p>Our best work starts by listening—then turning what we learn into products that make a meaningful difference.</p></div>
+        <div className="projects-list">{projects.map((project) => <article className="project-row" key={project.number}><div className={`project-visual visual-${project.visual}`}><ProjectVisual type={project.visual} /></div><div className="project-info"><span className="section-kicker">{project.number} &nbsp;/&nbsp; {project.kind}</span><h3>{project.title}</h3><p>{project.detail}</p><div className="project-result"><span>THE OUTCOME</span><strong>{project.result}</strong></div><a href="#contact" className="project-link">Talk about a similar idea <Arrow /></a></div></article>)}</div>
+        <div className="work-footnote"><span>SELECTED CONCEPTS & PRODUCT DIRECTIONS</span><span>THOUGHTFUL DETAIL. MEASURABLE PROGRESS.</span></div>
+      </div></section>
 
-                <div className="team-skills-chips">
-                  {member.skills.map((skill, sIdx) => (
-                    <span key={sIdx} className="team-skill-chip">{skill}</span>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <section className="section approach-section" id="approach"><div className="container"><div className="section-heading reveal"><div><span className="section-kicker">03 / OUR APPROACH</span><h2>Clear from the<br /><span>first hello.</span></h2></div><p>A close, collaborative process keeps the work grounded in what matters and flexible enough to find the right answer.</p></div>
+        <div className="approach-grid">{steps.map(([number, title, description]) => <article className="approach-step" key={number}><span className="step-number">{number}</span><span className="step-rule" /><h3>{title}</h3><p>{description}</p></article>)}</div>
+      </div></section>
 
-      <section id="tech" className="section tech-ecosystem-section">
-        <div className="container">
-          <div className="section-head">
-            <span className="section-tag">Technology Ecosystem</span>
-            <h2 className="section-title">Modern Stack & Tooling</h2>
-            <p className="section-desc">
-              Battle-tested frameworks, cloud infrastructure, and AI toolkits engineered for extreme speed, scalability, and zero downtime.
-            </p>
-          </div>
+      <section className="stack-section"><div className="container stack-layout"><div className="stack-heading reveal"><span className="section-kicker">04 / OUR TOOLKIT</span><h2>Right tool.<br />Right reason.</h2><p>We choose technology to suit the product, the team, and the long game.</p></div><div className="stack-groups">{stacks.map(([group, ...items]) => <div className="stack-group" key={group}><span>{group}</span><div>{items.map((item) => <span className="stack-pill" key={item}>{item}</span>)}</div></div>)}</div></div></section>
 
-          <div className="grid-2 tech-clusters-grid">
-            {techCategories.map((cat, index) => (
-              <div
-                key={index}
-                className="card tech-cluster-card interactive-3d-card"
-                style={{ '--cluster-accent': cat.accent }}
-                onMouseMove={handleCardMouseMove}
-                onMouseLeave={handleCardMouseLeave}
-              >
-                <div className="cluster-header">
-                  <div className="cluster-icon-box">
-                    <span>{cat.icon}</span>
-                  </div>
-                  <div className="cluster-title-wrap">
-                    <span className="cluster-badge">{cat.badge}</span>
-                    <h3 className="cluster-title">{cat.category}</h3>
-                  </div>
-                </div>
+      <section className="contact-section" id="contact"><div className="container"><div className="contact-panel reveal"><div className="contact-top"><span className="section-kicker">06 / YOUR NEXT CHAPTER</span><span className="contact-spark">✳</span></div><h2>Have a good one<br /><span>in mind?</span></h2><div className="contact-bottom"><p>Tell us what you’re building, where you’re stuck, or what you’re curious about. We’ll take it from there.</p><a className="button button-light" href="mailto:aquilalabs4@gmail.com?subject=Project%20enquiry">Email our team <Arrow diagonal /></a></div><span className="contact-outline" aria-hidden="true">LET’S MAKE IT MATTER</span></div><div className="contact-workspace"><form className="enquiry-form" onSubmit={handleEnquiry}><div className="form-heading"><span className="section-kicker">TELL US A LITTLE ABOUT IT</span><p>Your message is sent to our team directly. We’ll reply to the email you provide.</p></div><div className="form-row"><label>Your name<input name="name" autoComplete="name" placeholder="How should we address you?" required /></label><label>Your email<input name="email" type="email" autoComplete="email" placeholder="Where can we reply?" required /></label></div><label>What are you looking to build?<textarea name="project" rows="3" placeholder="A sentence or two is plenty to get started." required /></label><div className="form-actions"><button className="button button-dark" type="submit" disabled={formState.status === 'sending'}>{formState.status === 'sending' ? 'Sending…' : 'Send your enquiry'} <Arrow diagonal /></button><button className="copy-email" type="button" onClick={copyEmail}>{emailCopied ? 'Email copied ✓' : 'Copy email address'}</button></div><p className={`form-status ${formState.status}`} role="status" aria-live="polite">{formState.message}</p></form><div className="contact-options">{socialLinks.map((social) => <a className="contact-option" key={social.name} href={social.href} target="_blank" rel="noreferrer"><span className="contact-option-icon">{social.name === 'Instagram' ? '◎' : 'in'}</span><span><small>FOLLOW ALONG ON {social.name.toUpperCase()}</small><strong>{social.handle}</strong></span><Arrow diagonal /></a>)}</div></div></div></section>
+    </main>
 
-                <p className="cluster-desc">{cat.desc}</p>
-
-                <div className="cluster-tools-grid">
-                  {cat.stack.map((item, sIdx) => (
-                    <div key={sIdx} className="cluster-tool-item">
-                      <span className="tool-dot">✦</span>
-                      <div className="tool-text-group">
-                        <span className="tool-name">{item.name}</span>
-                        <span className="tool-role">{item.role}</span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-
-      <section id="work" className="section work-section">
-        <div className="container">
-          <div className="section-head">
-            <span className="section-tag">Portfolio</span>
-            <h2 className="section-title">Selected Case Studies</h2>
-            <p className="section-desc">
-              A glimpse into the digital systems, web apps, and enterprise platforms engineered by our team.
-            </p>
-          </div>
-
-          <div className="grid-3">
-            {featuredProjects.map((project, index) => (
-              <div
-                key={index}
-                className="card project-card-premium interactive-3d-card"
-                style={{ '--project-glow': project.glow }}
-                onMouseMove={handleCardMouseMove}
-                onMouseLeave={handleCardMouseLeave}
-              >
-                <div className="project-glow-layer"></div>
-
-                <div className="project-badge-bar">
-                  <div className="project-tag-group">
-                    <span className="project-icon-box">{project.icon}</span>
-                    <span className="project-category-tag">{project.tag}</span>
-                  </div>
-                  <span className="project-status-badge">
-                    <span className="pulse-dot"></span>
-                    {project.badge}
-                  </span>
-                </div>
-
-                <h3 className="project-title">{project.title}</h3>
-                <p className="project-desc">{project.desc}</p>
-
-
-                <div className="project-metric-pill">
-                  <span className="metric-icon">📈</span>
-                  <span className="metric-text">{project.metric}</span>
-                </div>
-
-                <div className="project-tech-tags">
-                  {project.tech.map((t, i) => (
-                    <span key={i} className="project-tech-tag">{t}</span>
-                  ))}
-                </div>
-
-                <div className="project-card-footer">
-                  <span className="project-link-hint">
-                    Explore Architecture & Specs <span className="arrow-animated">→</span>
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-
-      <section id="testimonials" className="section testimonials-section">
-        <div className="container">
-          <div className="section-head">
-            <span className="section-tag">Client Voices</span>
-            <h2 className="section-title">What Founders Say About Us</h2>
-            <p className="section-desc">
-              Verified feedback from enterprise clients and high-growth partners.
-            </p>
-          </div>
-        </div>
-
-        <div
-          className="reviews-marquee-outer"
-          ref={reviewsTrackRef}
-          onMouseDown={(e) => {
-            isDraggingRef.current = true
-            startXRef.current = e.pageX - reviewsTrackRef.current.offsetLeft
-            scrollLeftRef.current = reviewsTrackRef.current.scrollLeft
-            reviewsTrackRef.current.classList.add('is-dragging')
-          }}
-          onMouseLeave={() => {
-            isDraggingRef.current = false
-            if (reviewsTrackRef.current) {
-              reviewsTrackRef.current.classList.remove('is-dragging')
-            }
-          }}
-          onMouseUp={() => {
-            isDraggingRef.current = false
-            if (reviewsTrackRef.current) {
-              reviewsTrackRef.current.classList.remove('is-dragging')
-            }
-          }}
-          onMouseMove={(e) => {
-            if (!isDraggingRef.current) return
-            e.preventDefault()
-            const x = e.pageX - reviewsTrackRef.current.offsetLeft
-            const walk = (x - startXRef.current) * 1.5
-            reviewsTrackRef.current.scrollLeft = scrollLeftRef.current - walk
-          }}
-          onWheel={(e) => {
-            if (e.deltaY !== 0) {
-              reviewsTrackRef.current.scrollLeft += e.deltaY * 0.8
-            }
-          }}
-        >
-          <div className="reviews-marquee-track">
-            {testimonials.concat(testimonials).concat(testimonials).map((item, index) => (
-              <div key={index} className="reviews-marquee-card card">
-                <div className="review-card-header">
-                  <div className="testimonial-rating">
-                    {'★'.repeat(item.rating)}
-                  </div>
-                  <span className="review-verified-tag">✓ Verified Partner</span>
-                </div>
-
-                <p className="slider-review-quote">"{item.quote}"</p>
-
-                <div className="testimonial-author-box">
-                  <div className="testimonial-avatar">
-                    {item.author.split(' ').map(n => n[0]).join('')}
-                  </div>
-                  <div>
-                    <h4 className="testimonial-name">{item.author}</h4>
-                    <p className="testimonial-role">
-                      {item.role} · <span className="highlight-text">{item.company}</span>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-
-      <section id="connect" className="section connect-section">
-        <div className="container">
-          <div className="cta-banner-premium">
-            <div className="cta-glow-background"></div>
-
-            <div className="cta-header-pill">
-              <span className="pulse-dot"></span>
-              <span>Available for New Projects</span>
-            </div>
-
-            <h2 className="cta-headline">
-              Ready to build <span className="gradient-text">something iconic?</span>
-            </h2>
-            <p className="cta-subtext">
-              Whether you are architecting a new software platform from scratch or scaling an existing system, Aquila Labs delivers elite technical execution.
-            </p>
-
-            <div className="cta-channels-grid">
-              <a
-                href="mailto:contact@aquilalabs.com"
-                className="cta-channel-card primary-channel interactive-3d-card"
-                onMouseMove={handleCardMouseMove}
-                onMouseLeave={handleCardMouseLeave}
-              >
-                <div className="channel-icon-circle">
-                  ✉️
-                </div>
-                <div className="channel-info">
-                  <span className="channel-type">Direct Inquiry</span>
-                  <span className="channel-title">contact@aquilalabs.com</span>
-                  <span className="channel-badge">Average response: &lt; 2 hrs</span>
-                </div>
-                <span className="channel-arrow">↗</span>
-              </a>
-
-              <a
-                href="https://linkedin.com"
-                target="_blank"
-                rel="noreferrer"
-                className="cta-channel-card interactive-3d-card"
-                onMouseMove={handleCardMouseMove}
-                onMouseLeave={handleCardMouseLeave}
-              >
-                <div className="channel-icon-circle">
-                  💼
-                </div>
-                <div className="channel-info">
-                  <span className="channel-type">Professional Network</span>
-                  <span className="channel-title">LinkedIn Profile</span>
-                  <span className="channel-hint">Connect with Founders</span>
-                </div>
-                <span className="channel-arrow">↗</span>
-              </a>
-
-              <a
-                href="https://instagram.com"
-                target="_blank"
-                rel="noreferrer"
-                className="cta-channel-card interactive-3d-card"
-                onMouseMove={handleCardMouseMove}
-                onMouseLeave={handleCardMouseLeave}
-              >
-                <div className="channel-icon-circle">
-                  📸
-                </div>
-                <div className="channel-info">
-                  <span className="channel-type">Studio Culture</span>
-                  <span className="channel-title">Instagram Page</span>
-                  <span className="channel-hint">Behind the scenes</span>
-                </div>
-                <span className="channel-arrow">↗</span>
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <footer className="footer">
-        <div className="container">
-          <div className="footer-top">
-            <div className="footer-brand">
-              <a
-                href="/"
-                onClick={(e) => {
-                  e.preventDefault()
-                  window.history.pushState(null, '', '/')
-                  scrollToTop()
-                }}
-                className="brand"
-                title="Aquila Labs - Home"
-              >
-                <div className="brand-logo-glow">
-                  <Logo size={32} />
-                </div>
-                <span className="brand-text">
-                  Aquila <span>Labs</span>
-                </span>
-              </a>
-              <p>
-                A modern digital innovation studio delivering high-performance web,
-                mobile, and custom software systems globally.
-              </p>
-            </div>
-
-            <div className="footer-col">
-              <h5>Navigation</h5>
-              <ul>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#process">Process</a></li>
-                <li><a href="#tech">Tech Stack</a></li>
-                <li><a href="#connect">Contact</a></li>
-              </ul>
-            </div>
-
-            <div className="footer-col">
-              <h5>Services</h5>
-              <ul>
-                <li><a href="#services">Web Development</a></li>
-                <li><a href="#services">Mobile Applications</a></li>
-                <li><a href="#services">UI / UX Design</a></li>
-                <li><a href="#services">Cloud & Automation</a></li>
-              </ul>
-            </div>
-
-            <div className="footer-col">
-              <h5>Social Channels</h5>
-              <ul>
-                <li><a href="https://linkedin.com" target="_blank" rel="noreferrer">LinkedIn</a></li>
-                <li><a href="https://instagram.com" target="_blank" rel="noreferrer">Instagram</a></li>
-                <li><a href="mailto:contact@aquilalabs.com">Email Us</a></li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="footer-bottom">
-            <p>© {new Date().getFullYear()} Aquila Labs. All rights reserved.</p>
-            <p>Engineered for Speed & Scalability</p>
-          </div>
-        </div>
-      </footer>
-
-      {showScroll && (
-        <button
-          onClick={scrollToTop}
-          className="scroll-top-btn"
-          aria-label="Scroll to top"
-          title="Back to top"
-        >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <polyline points="18 15 12 9 6 15"></polyline>
-          </svg>
-        </button>
-      )}
-    </div>
-  )
+    <footer className="footer"><div className="container"><div className="footer-main"><div className="footer-brand-column"><a className="footer-brand" href="#home" aria-label="Aquila Labs home"><img src={logo} alt="Aquila Labs" /></a><p>Thoughtful technology.<br />A more human future.</p></div><div className="footer-column"><h2>Explore</h2><a href="#services">Services</a><a href="#products">Our products</a><a href="#work">Selected work</a><a href="#team">Meet the team</a></div><div className="footer-column"><h2>Get in touch</h2><a href="mailto:aquilalabs4@gmail.com">Email us</a>{socialLinks.map((social) => <a key={social.name} href={social.href} target="_blank" rel="noreferrer">{social.name} <Arrow diagonal /></a>)}</div><a className="footer-cta" href="mailto:aquilalabs4@gmail.com?subject=Let%E2%80%99s%20build%20something%20together"><span>HAVE AN IDEA?</span><strong>Let’s talk <Arrow diagonal /></strong></a></div><div className="footer-bottom"><span>© {new Date().getFullYear()} AQUILA LABS</span><span>INDEPENDENT DIGITAL PRODUCT STUDIO</span><a href="#home">BACK TO TOP ↑</a></div></div></footer>
+  </div>
 }
